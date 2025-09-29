@@ -150,7 +150,7 @@ export default function DictionarySections() {
               Get your word of the day daily email!
             </p>
 
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
               <input
                 type="email"
                 placeholder="Enter your email"
