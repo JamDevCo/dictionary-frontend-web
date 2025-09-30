@@ -53,22 +53,24 @@ const FeatureCard: React.FC<CardProps> = ({
         {title === "Slangs" && (
           <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
             <div className="text-center">
-              <div className="bg-gray-800 rounded-full w-32 h-32 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-6xl">👤</span>
-              </div>
-              <h3 className="text-white text-2xl font-bold">Heng Pon Nail</h3>
+              {image && (
+                <img
+                  src={image}
+                  alt={title}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </div>
         )}
       </div>
       <div
-        className={`${
-          title === "Slangs"
-            ? "bg-yellow-600"
-            : title === "True or False Quiz"
+        className={`${title === "Slangs"
+          ? "bg-yellow-600"
+          : title === "True or False Quiz"
             ? "bg-cyan-600"
             : "bg-amber-700"
-        } py-4`}
+          } py-4`}
       >
         <h3 className={`text-center text-xl font-bold ${textColor}`}>
           {title === "Slangs" ? "Slangs" : title}

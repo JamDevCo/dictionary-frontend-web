@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react'
 import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -13,24 +15,26 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-800 text-white">
+    <footer className="bg-gray-800 text-white w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          
+
           {/* Left Section - Logo and Links */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Logo */}
-            <div className="flex items-center">
-              <div className="w-20 h-20 rounded-full border-4 border-green-500 flex items-center justify-center">
-                <div className="text-center">
-                  <span className="text-green-400 text-3xl">📖</span>
-                  <div className="text-xs text-green-400 font-bold">PATWAH</div>
-                </div>
-              </div>
-            </div>
-            
+            <Link href="/">
+              <Image
+                src="/logo_bg_gone.png"
+                alt="Patwa Dictionary Logo"
+                height={80}
+                width={80}
+                className="rounded-full object-cover"
+                priority
+              />
+            </Link>
+
             {/* Navigation Links */}
-            <nav className="flex flex-wrap gap-6 text-sm">
+            <nav className="flex flex-col items-center gap-4">
               <a href="#" className="hover:text-green-400 transition-colors">
                 Help
               </a>
@@ -57,8 +61,8 @@ export default function Footer() {
             <p className="text-gray-300 mb-4">
               Delivered to your inbox!
             </p>
-            
-            <form onSubmit={handleSubscribe} className="flex gap-2">
+
+            <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
               <input
                 type="email"
                 placeholder="Your email address"
@@ -112,7 +116,7 @@ export default function Footer() {
 
         </div>
       </div>
-      
+
       {/* Bottom Copyright Bar */}
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-6 py-4">
