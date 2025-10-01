@@ -8,7 +8,9 @@ import axios from "axios";
 
 const HomeHeader: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"dictionary" | "thesaurus">("dictionary");
+  const [activeTab, setActiveTab] = useState<"dictionary" | "thesaurus">(
+    "dictionary"
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -58,11 +60,13 @@ const HomeHeader: React.FC = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
-
   // Hide dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setSuggestions([]);
       }
     }
@@ -74,10 +78,9 @@ const HomeHeader: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-br from-green-700 to-green-600 min-h-screen overflow-x-hidden">
+    <header className="bg-[#016701] min-h-screen overflow-x-hidden">
       {/* Top Navigation */}
       <nav className="flex justify-between items-center px-3 py-1 sm:px-6 lg:px-8 font-sans font-bold">
-
         {/* Desktop Navigation */}
         <div className="hidden lg:flex flex gap-8">
           {navItems.slice(0, 3).map((item) => (
@@ -117,7 +120,6 @@ const HomeHeader: React.FC = () => {
           ))}
         </div>
 
-
         {/* Mobile Menu Button */}
         <button
           className="lg:hidden text-white focus:outline-none"
@@ -125,13 +127,17 @@ const HomeHeader: React.FC = () => {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMenuOpen}
         >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-green-600 text-white font-bold font-sans text-sm">
+        <div className="lg:hidden bg-[#016701] text-white font-bold font-sans text-sm">
           <div className="flex flex-col gap-4 px-4 py-3">
             {navItems.map((item) => (
               <Link
@@ -149,23 +155,28 @@ const HomeHeader: React.FC = () => {
 
       {/* Search Section */}
       <div className="flex justify-center mt-8 px-4 sm:mt-12 lg:mt-16">
-        <div className="flex flex-col sm:flex-row bg-gray-900 rounded-lg overflow-hidden shadow-2xl w-full max-w-3xl" ref={wrapperRef}>
+        <div
+          className="flex flex-col sm:flex-row bg-gray-900 rounded-lg overflow-hidden shadow-2xl w-full max-w-3xl"
+          ref={wrapperRef}
+        >
           <button
             onClick={() => handleTabChange("dictionary")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${activeTab === "dictionary"
-              ? "bg-amber-600 text-white"
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-              }`}
+            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
+              activeTab === "dictionary"
+                ? "bg-[#B88600] text-white"
+                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+            }`}
             aria-pressed={activeTab === "dictionary"}
           >
             Dictionary
           </button>
           <button
             onClick={() => handleTabChange("thesaurus")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${activeTab === "thesaurus"
-              ? "bg-amber-600 text-white"
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-              }`}
+            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
+              activeTab === "thesaurus"
+                ? "bg-[#B88600] text-white"
+                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+            }`}
             aria-pressed={activeTab === "thesaurus"}
           >
             Thesaurus
@@ -200,12 +211,10 @@ const HomeHeader: React.FC = () => {
               )}
             </div>
 
-            <button className="bg-amber-600 hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
+            <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
               <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </button>
           </div>
-
-
         </div>
       </div>
 

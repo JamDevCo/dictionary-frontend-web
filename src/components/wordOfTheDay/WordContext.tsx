@@ -58,7 +58,7 @@ export default function WordContext() {
             />
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 uppercase text-sm tracking-wide"
+              className="w-full bg-[#016701] hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 uppercase text-sm tracking-wide"
             >
               SUBSCRIBE
             </button>

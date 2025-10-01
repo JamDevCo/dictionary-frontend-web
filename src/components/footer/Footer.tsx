@@ -1,24 +1,23 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
+import React, { useState } from "react";
+import { Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
 
   const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Subscribe with email:', email)
+    e.preventDefault();
+    console.log("Subscribe with email:", email);
     // Add subscription logic here
-  }
+  };
 
   return (
     <footer className="bg-gray-800 text-white w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-
           {/* Left Section - Logo and Links */}
           <div className="flex flex-col items-center md:items-start space-y-6">
             {/* Logo */}
@@ -58,9 +57,7 @@ export default function Footer() {
             <h3 className="text-xl font-semibold mb-2">
               Learn a new word everyday.
             </h3>
-            <p className="text-gray-300 mb-4">
-              Delivered to your inbox!
-            </p>
+            <p className="text-gray-300 mb-4">Delivered to your inbox!</p>
 
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
               <input
@@ -73,7 +70,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors uppercase"
+                className="px-6 py-3 bg-[#016701] hover:bg-[#016701] text-white font-bold rounded-lg transition-colors uppercase"
               >
                 Subscribe
               </button>
@@ -113,7 +110,6 @@ export default function Footer() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -126,5 +122,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

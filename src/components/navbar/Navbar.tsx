@@ -1,88 +1,126 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 
-const Navbar = () => {
+// Note: In a real Next.js app, you would import Link like this:
+// import Link from 'next/link';
+
+// For this React artifact environment, we'll create a mock Link component
+// Replace this with the actual Next.js Link import in your project
+
+export default function Navbar() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<"dictionary" | "thesaurus">(
+    "dictionary"
+  );
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(`Searching in ${activeTab} for:`, searchQuery);
+    // Implement search functionality here
+    // You can redirect to the appropriate route with the search query
+  };
+
   return (
-    <nav className="bg-[#016701] px-4 py-2">
-      <div className="flex items-center justify-between">
-        {/* Logo Section */}
-        <div className="flex items-center space-x-32">
-          <div className="w-10 rounded-full flex items-center justify-center">
-            <Image
-              width={70}
-              height={70}
-              alt="logo"
-              src={"/dictionary.svg"}
-              className="absolute top-2"
-            />
-          </div>
+    <nav className="bg-gradient-to-r from-green-700 to-green-600 px-4 py-3">
+      <div className="max-w-7xl mx-auto flex items-center gap-4">
+        {/* Logo */}
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            width={70}
+            height={70}
+            alt="logo"
+            src={"/dictionary.svg"}
+            className="absolute left-6 top-2"
+          />
+        </Link>
 
-          {/* Main Navigation Buttons */}
-          <div className="flex space-x-1">
-            <button className="bg-[#B88600] text-white px-4 py-2 rounded font-medium hover:bg-[#9a7000] transition-colors">
-              Dictionary
-            </button>
-            <button className="bg-[#B88600] text-white px-4 py-2 rounded font-medium hover:bg-[#9a7000] transition-colors">
-              Thesaurus
-            </button>
-          </div>
-
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search Dictionary"
-              className="w-64 px-4 py-2 pr-10 rounded border-0 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#B88600] p-1 rounded hover:bg-[#9a7000] transition-colors">
-              <Search className="w-4 h-4 text-white" />
-            </button>
-          </div>
-        </div>
-
-        {/* Right Navigation Links */}
-        <div className="flex items-center space-x-6 text-white">
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
+        {/* Dictionary, Thesaurus and Search Bar - Joined */}
+        <div className="flex">
+          <button
+            onClick={() => setActiveTab("dictionary")}
+            className={`px-5 py-2 font-semibold transition-colors rounded-l ${
+              activeTab === "dictionary"
+                ? "bg-yellow-600 text-white"
+                : "bg-gray-600 text-gray-300 hover:bg-gray-700"
+            }`}
           >
-            Games
-          </a>
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
-          >
-            Word of the Day
-          </a>
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
-          >
-            Proverbs
-          </a>
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
-          >
-            Slang
-          </a>
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
-          >
-            Rhymes
-          </a>
-          <a
-            href="#"
-            className="hover:text-gray-200 transition-colors font-medium"
+            Dictionary
+          </button>
+          <button
+            onClick={() => setActiveTab("thesaurus")}
+            className={`px-5 py-2 font-semibold transition-colors ${
+              activeTab === "thesaurus"
+                ? "bg-green-800 text-white"
+                : "bg-gray-600 text-gray-300 hover:bg-gray-700"
+            }`}
           >
             Thesaurus
-          </a>
+          </button>
+          <form onSubmit={handleSearch} className="flex">
+            <input
+              type="text"
+              placeholder={`Search ${
+                activeTab === "dictionary" ? "Dictionary" : "Thesaurus"
+              }`}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="px-4 py-2 text-gray-800 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 min-w-[200px]"
+            />
+            <button
+              type="submit"
+              className="px-4 bg-yellow-600 hover:bg-yellow-700 rounded-r transition-colors"
+            >
+              <Search className="w-5 h-5 text-white" />
+            </button>
+          </form>
+        </div>
+
+        {/* Spacer */}
+        <div className="flex-1"></div>
+
+        {/* Right Navigation Items */}
+        <div className="flex items-center gap-6 text-white font-semibold">
+          <Link
+            href="/games"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Games
+          </Link>
+          <Link
+            href="/word-of-the-day"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Word of the Day
+          </Link>
+          <Link
+            href="/proverbs"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Proverbs
+          </Link>
+          <Link
+            href="/slang"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Slang
+          </Link>
+          <Link
+            href="/rhymes"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Rhymes
+          </Link>
+          <Link
+            href="/thesaurus"
+            className="hover:text-yellow-300 transition-colors"
+          >
+            Thesaurus
+          </Link>
         </div>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

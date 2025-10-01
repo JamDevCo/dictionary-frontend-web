@@ -96,7 +96,7 @@ export default function Quiz() {
               />
               <button
                 type="submit"
-                className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded transition-colors"
+                className="bg-[#016701] hover:bg-green-700 text-white font-medium px-6 py-2 rounded transition-colors"
               >
                 SUBSCRIBE
               </button>

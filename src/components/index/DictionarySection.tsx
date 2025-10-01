@@ -158,7 +158,7 @@ export default function DictionarySections() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
-              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors">
+              <button className="bg-[#016701] hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors">
                 Sign up
               </button>
             </div>

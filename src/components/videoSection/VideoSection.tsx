@@ -1,48 +1,47 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { ChevronRight } from 'lucide-react'
+import React from "react";
+import { ChevronRight } from "lucide-react";
 
 interface VideoItem {
-  title: string
-  url?: string
+  title: string;
+  url?: string;
 }
 
 export default function VideosSection() {
   const videoItems: VideoItem[] = [
     {
       title: "How did Patwah come about",
-      url: "#"
+      url: "#",
     },
     {
       title: "Influence of other languages over the years",
-      url: "#"
+      url: "#",
     },
     {
       title: "Can you tell where I'm from based on my dialect?",
-      url: "#"
-    }
-  ]
+      url: "#",
+    },
+  ];
 
   const handleVideoClick = (video: VideoItem) => {
-    console.log('Video clicked:', video.title)
+    console.log("Video clicked:", video.title);
     // Add navigation or video player logic here
-  }
+  };
 
   const handleSeeAll = () => {
-    console.log('See all videos clicked')
+    console.log("See all videos clicked");
     // Add navigation logic here
-  }
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-8">
-      <div className="bg-green-600 rounded-lg p-8">
+      <div className="bg-[#016701] rounded-lg p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
           {/* Left Section - Videos List */}
           <div className="bg-slate-800 rounded-lg p-8">
             <h2 className="text-4xl font-bold text-white mb-8">Videos</h2>
-            
+
             <div className="space-y-4 mb-8">
               {videoItems.map((video, index) => (
                 <button
@@ -57,10 +56,10 @@ export default function VideosSection() {
                 </button>
               ))}
             </div>
-            
+
             <button
               onClick={handleSeeAll}
-              className="w-full bg-green-500 hover:bg-green-400 text-slate-900 font-bold text-lg py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-[#016701] hover:bg-green-400 text-slate-900 font-bold text-lg py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
             >
               See All
               <ChevronRight className="w-5 h-5" />
@@ -77,8 +76,8 @@ export default function VideosSection() {
                     <div className="grid grid-cols-4 grid-rows-2 h-48">
                       {/* Image placeholders - replace with actual images */}
                       <div className="bg-gray-400 border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=200&h=150&fit=crop"
                           alt="Iguana"
                           className="w-full h-full object-cover"
                         />
@@ -87,36 +86,36 @@ export default function VideosSection() {
                         <span className="text-red-500 text-4xl">🦩</span>
                       </div>
                       <div className="bg-white border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=200&h=150&fit=crop"
                           alt="Beach"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-cyan-400 border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=200&h=150&fit=crop"
                           alt="Tropical beach"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-teal-500 border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=150&fit=crop"
                           alt="Nature"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-cyan-300 border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=200&h=150&fit=crop"
                           alt="Ocean"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-blue-400 border border-white">
-                        <img 
-                          src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=200&h=150&fit=crop" 
+                        <img
+                          src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=200&h=150&fit=crop"
                           alt="Beach"
                           className="w-full h-full object-cover"
                         />
@@ -128,7 +127,7 @@ export default function VideosSection() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Card Content */}
               <div className="px-6 pb-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -140,9 +139,8 @@ export default function VideosSection() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }
