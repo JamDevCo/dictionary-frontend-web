@@ -7,6 +7,7 @@ import Link from "next/link";
 import axios from "axios";
 
 const HomeHeader: React.FC = () => {
+  const apiBaseUrl = process.env.API_BASE_URL;
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"dictionary" | "thesaurus">(
     "dictionary"
@@ -43,7 +44,7 @@ const HomeHeader: React.FC = () => {
     const delayDebounce = setTimeout(() => {
       setLoading(true);
       axios
-        .get(`http://localhost:8000/api/autocomplete/${searchQuery}`, {})
+        .get(`${apiBaseUrl}/api/autocomplete/${searchQuery}`, {})
         .then((res) => {
           const merged = [...res.data.words, ...res.data.meanings];
           const suggestionsList = merged.map((item) => item.word);
@@ -78,7 +79,7 @@ const HomeHeader: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-[#016701] min-h-screen overflow-x-hidden">
+    <header className="bg-[#016701] h-[30%] overflow-x-hidden">
       {/* Top Navigation */}
       <nav className="flex justify-between items-center px-3 py-1 sm:px-6 lg:px-8 font-sans font-bold">
         {/* Desktop Navigation */}
@@ -161,22 +162,20 @@ const HomeHeader: React.FC = () => {
         >
           <button
             onClick={() => handleTabChange("dictionary")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
-              activeTab === "dictionary"
-                ? "bg-[#B88600] text-white"
-                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-            }`}
+            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${activeTab === "dictionary"
+              ? "bg-[#B88600] text-white"
+              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+              }`}
             aria-pressed={activeTab === "dictionary"}
           >
             Dictionary
           </button>
           <button
             onClick={() => handleTabChange("thesaurus")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
-              activeTab === "thesaurus"
-                ? "bg-[#B88600] text-white"
-                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-            }`}
+            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${activeTab === "thesaurus"
+              ? "bg-[#B88600] text-white"
+              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+              }`}
             aria-pressed={activeTab === "thesaurus"}
           >
             Thesaurus
