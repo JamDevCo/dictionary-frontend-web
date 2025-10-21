@@ -57,7 +57,7 @@ export default function Home() {
   }, [searchQuery]);
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
-      {/* Header (custom, no external components) */}
+      
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -150,7 +150,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero with large search */}
+    
       <section className="relative bg-[url('/flag.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-24 text-center">
@@ -179,14 +179,7 @@ export default function Home() {
                 placeholder="Search Jamaican Creole — type a word or phrase"
                 aria-label="Search"
               />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-[#016701] text-white font-medium rounded-r-full"
-              >
-                Search
-              </button>
-
-              {/* predictive suggestions container */}
+             
             </div>
 
             {(suggestions.length > 0 || thesaurusSuggestions.length > 0) && (
@@ -197,7 +190,7 @@ export default function Home() {
                     <li
                       key={s.id}
                       onMouseDown={(e) => {
-                        e.preventDefault(); // keep focus behavior stable
+                        e.preventDefault(); 
                         setQuerySearch(s.text);
                         setShowSuggestions(false);
                       }}
@@ -214,7 +207,7 @@ export default function Home() {
                     <li
                       key={s.id}
                       onMouseDown={(e) => {
-                        e.preventDefault(); // keep focus behavior stable
+                        e.preventDefault(); 
                         setQuerySearch(s.text);
                         setShowSuggestions(false);
                       }}
@@ -226,11 +219,18 @@ export default function Home() {
                 </ul>
               </div>
             )}
+
+            {(suggestions.length == 0 && thesaurusSuggestions.length == 0 ) && searchQuery.length != 0 && (
+              <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
+                <p className=' font-extrabold text-[#016701]'>No results found</p>
+                
+              </div>
+            )}
           </form>
         </div>
       </section>
 
-      {/* Word of the Day */}
+      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-6 ring-1 ring-black/5">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -275,9 +275,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Main content */}
+      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left column: Featured Words */}
+        
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-2xl font-semibold text-[#053a12]">
@@ -380,7 +380,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Pronunciation demo & Example sentences */}
+          
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-xl font-semibold text-[#053a12]">
               Pronunciation & examples
@@ -414,7 +414,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Cultural notes */}
+          
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-xl font-semibold text-[#053a12]">
               Cultural notes
@@ -437,7 +437,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right column: Categories, videos, newsletter */}
+        
         <aside className="space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h4 className="text-lg font-semibold text-[#053a12]">Categories</h4>
@@ -566,43 +566,7 @@ export default function Home() {
         </aside>
       </section>
 
-      {/* Footer (kept simple) */}
-      {/* <footer className="bg-[#016701] text-white mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo_dic.jpg"
-              alt="Logo"
-              width={48}
-              height={48}
-              className="rounded-full object-cover"
-            />
-            <div>
-              <div className="font-bold">Jamaica Creole Dictionary</div>
-              <div className="text-sm opacity-90">Preserving language & culture</div>
-            </div>
-          </div>
-
-          <nav className="mt-4 sm:mt-0 flex gap-4 text-sm">
-            <Link href="/about" className="hover:underline">
-              About
-            </Link>
-            <Link href="/privacy" className="hover:underline">
-              Privacy
-            </Link>
-            <Link href="/contact" className="hover:underline">
-              Contact
-            </Link>
-          </nav>
-        </div>
-
-        <div className="border-t border-white/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-xs text-white/90 text-center">
-            © {new Date().getFullYear()} Jamaica Creole Dictionary — All rights
-            reserved.
-          </div>
-        </div>
-      </footer> */}
+      
     </main>
   );
 }
