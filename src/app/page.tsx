@@ -11,14 +11,9 @@ export default function Home() {
   // predictive text (hard-coded suggestions for now)
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const [suggestions, setSuggestions] = useState<string[]>([
-    "irie",
-    "wah gwaan",
-    "nyam",
-    "pickney",
-    "bruk out",
-    "big up",
-  ]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  const [thesaurusSuggestions, setThesaurusSuggestions] = useState<string[]>([])
 
   // const matches = suggestions.filter((s) =>
   //   s.toLowerCase().includes(searchQuery.trim().toLowerCase())
@@ -27,6 +22,12 @@ export default function Home() {
  
   const [loading, setLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const clear = () => {
+    setSearchQuery("");
+    setSuggestions([]);
+    setThesaurusSuggestions([]);
+  }
 
   useEffect(() => {
     if (searchQuery.length < 2) {
@@ -42,7 +43,8 @@ export default function Home() {
         })
         .then((res) => {
           console.log(res.data);
-          setSuggestions(res.data);
+          setSuggestions(res.data.words);
+          setThesaurusSuggestions(res.data.meanings);
           setLoading(false);
         })
         .catch((err) => {
@@ -169,8 +171,8 @@ export default function Home() {
             <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow">
               <input
                 name="q"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                
+                onChange={(e) => e.target.value.length == 0 ? () => clear() : setSearchQuery(e.target.value)}
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 className="flex-1 px-5 py-3 text-gray-800 outline-none rounded-l-full"
@@ -187,12 +189,30 @@ export default function Home() {
               {/* predictive suggestions container */}
             </div>
 
-            {suggestions.length > 0 && (
+            {(suggestions.length > 0 || thesaurusSuggestions.length > 0) && (
               <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
-                <ul className="max-h-48 overflow-auto">
+                <p className=' font-extrabold text-[#016701]'>Dictionary</p>
+                <ul className="max-h-48 overflow-auto mb-5">
                   {suggestions.map((s) => (
                     <li
-                      key={s}
+                      key={s.id}
+                      onMouseDown={(e) => {
+                        e.preventDefault(); // keep focus behavior stable
+                        setQuerySearch(s.text);
+                        setShowSuggestions(false);
+                      }}
+                      className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
+                    >
+                      {s.text}
+                    </li>
+                  ))}
+                </ul>
+
+                 <p className=' font-extrabold text-[#016701]'>Thesaurus</p>
+                <ul className="max-h-48 overflow-auto">
+                  {thesaurusSuggestions.map((s) => (
+                    <li
+                      key={s.id}
                       onMouseDown={(e) => {
                         e.preventDefault(); // keep focus behavior stable
                         setQuerySearch(s.text);
