@@ -43,12 +43,12 @@ const HomeHeader: React.FC = () => {
     const delayDebounce = setTimeout(() => {
       setLoading(true);
       axios
-        .get(`http://localhost:8000/api/autocomplete/${searchQuery}`, {})
+        .post(`http://localhost:8000/api/autocomplete`, {
+          query: searchQuery,
+          type: activeTab,
+        })
         .then((res) => {
-          const merged = [...res.data.words, ...res.data.meanings];
-          const suggestionsList = merged.map((item) => item.word);
-          console.log("Suggestions:", suggestionsList);
-          setSuggestions(suggestionsList);
+          setSuggestions(res.data);
           setLoading(false);
         })
         .catch((err) => {
@@ -78,7 +78,7 @@ const HomeHeader: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-[#016701] min-h-screen overflow-x-hidden">
+    <header className="bg-green-800 shadow-xl overflow-x-hidden">
       {/* Top Navigation */}
       <nav className="flex justify-between items-center px-3 py-1 sm:px-6 lg:px-8 font-sans font-bold">
         {/* Desktop Navigation */}
@@ -154,14 +154,14 @@ const HomeHeader: React.FC = () => {
       )}
 
       {/* Search Section */}
-      <div className="flex justify-center mt-8 px-4 sm:mt-12 lg:mt-16">
+      <div className="flex justify-center  mt-8 px-4 sm:mt-12 lg:mt-16">
         <div
-          className="flex flex-col sm:flex-row bg-gray-900 rounded-lg overflow-hidden shadow-2xl w-full max-w-3xl"
+          className="flex flex-col sm:flex-row border-5 border-black bg-gray-900 rounded-lg overflow-hidden shadow-2xl w-full max-w-5xl"
           ref={wrapperRef}
         >
           <button
             onClick={() => handleTabChange("dictionary")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
+            className={`flex-none w-32 sm:w-40 px-3 sm:px-4 py-3 sm:py-4 font-bold text-sm sm:text-base transition-all ${
               activeTab === "dictionary"
                 ? "bg-[#B88600] text-white"
                 : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -172,7 +172,7 @@ const HomeHeader: React.FC = () => {
           </button>
           <button
             onClick={() => handleTabChange("thesaurus")}
-            className={`flex-1 px-4 py-3 sm:px-6 sm:py-4 font-bold text-sm sm:text-base transition-all ${
+            className={`flex-none w-32 sm:w-40 px-3 sm:px-4 py-3 sm:py-4 font-bold text-sm sm:text-base transition-all ${
               activeTab === "thesaurus"
                 ? "bg-[#B88600] text-white"
                 : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -181,45 +181,47 @@ const HomeHeader: React.FC = () => {
           >
             Thesaurus
           </button>
-          <div className="flex items-center bg-white ">
-            <div className="flex-1 flex-col w-72" ref={wrapperRef}>
-              <input
-                type="text"
-                placeholder={`Search ${activeTab}...`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-4 py-3 sm:px-6 sm:py-4 w-full sm:w-64 lg:w-80 outline-none text-gray-800 text-sm sm:text-base"
-                aria-label={`Search ${activeTab}`}
-              />
+          
+            <div className="flex items-center bg-white  flex-1">
+              <div className="flex-1 flex flex-col relative">
+                <input
+                  type="text"
+                  placeholder={`Search ${activeTab}...`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="px-4  py-3 sm:px-6 sm:py-4 w-full outline-none text-gray-800 text-sm sm:text-base"
+                  aria-label={`Search ${activeTab}`}
+                />
+              </div>
 
-              {/* Suggestions Dropdown */}
-              {suggestions.length > 0 && (
-                <ul className="absolute bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 mt-0 w-72 sm:w-64 lg:w-80">
-                  {suggestions.map((word, i) => (
-                    <li
-                      key={i}
-                      onClick={() => {
-                        setSearchQuery(word);
-                        setSuggestions([]);
-                      }}
-                      className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
-                    >
-                      {word}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
+                <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </button>
             </div>
-
-            <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
-              <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
+           
           </div>
-        </div>
+      
       </div>
+  {suggestions.length > 0 && (
+              <ul className="absolute flex flex-col m-auto left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 w-1/2 mt-0 ">
+                {suggestions.map((word, i) => (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      setSearchQuery(word.text);
+                      setSuggestions([]);
+                    }}
+                    className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
+                  >
+                    {word.text}
+                  </li>
+                ))}
+              </ul>
+            )}
+      {/* Suggestions Dropdown */}
 
       {/* Feature Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8 mt-12 pb-12 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8 mt-20 pb-12 max-w-7xl mx-auto">
         <FeatureCard
           title="Slangs"
           subtitle="Explore Jamaican Slangs"
