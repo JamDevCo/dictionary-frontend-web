@@ -187,17 +187,11 @@ export default function Home() {
                 <p className=' font-extrabold text-[#016701]'>Dictionary</p>
                 <ul className="max-h-48 overflow-auto mb-5">
                   {suggestions.map((s) => (
-                    <li
-                      key={s.id}
-                      onMouseDown={(e) => {
-                        e.preventDefault(); 
-                        setQuerySearch(s.text);
-                        setShowSuggestions(false);
-                      }}
+                    <a key={s.id} href={`/word/${s.id}`}><li
                       className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
                     >
                       {s.text}
-                    </li>
+                    </li></a>
                   ))}
                 </ul>
 
@@ -208,7 +202,7 @@ export default function Home() {
                       key={s.id}
                       onMouseDown={(e) => {
                         e.preventDefault(); 
-                        setQuerySearch(s.text);
+                        setSearchQuery(s.text);
                         setShowSuggestions(false);
                       }}
                       className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
