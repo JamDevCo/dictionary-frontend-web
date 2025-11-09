@@ -7,6 +7,7 @@ import axios from "axios";
 export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [wordOfTheDay, setWordOfTheDay] = useState({word_of_the_day:{word:'', pronunciation:''}, meaning:{definition:'', example:''}});
 
   // predictive text (hard-coded suggestions for now)
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -29,13 +30,14 @@ export default function Home() {
     setThesaurusSuggestions([]);
   }
 
-  useEffect(() => {
-    if (searchQuery.length < 2) {
+  const suggestiveSearch = () => {
+
+     if (searchQuery.length < 2) {
       setSuggestions([]);
       return;
     }
 
-    const delayDebounce = setTimeout(() => {
+   const delayDebounce = setTimeout(() => {
       setLoading(true);
       axios
         .post(`http://localhost:8000/api/autocomplete`, {
@@ -54,7 +56,17 @@ export default function Home() {
     }, 300); // 300ms debounce
 
     return () => clearTimeout(delayDebounce);
-  }, [searchQuery]);
+  }
+    const getWordOfTheDay = async () => {
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/adjustWordOfTheDay`).then((res) => {
+      
+        setWordOfTheDay(res.data.data);
+      });
+    }
+
+  useEffect(() => {
+     getWordOfTheDay()
+  }, []);
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
       
@@ -171,7 +183,7 @@ export default function Home() {
             <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow">
               <input
                 name="q"
-                
+                onInput={() => suggestiveSearch()}
                 onChange={(e) => e.target.value.length == 0 ? () => clear() : setSearchQuery(e.target.value)}
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
@@ -226,14 +238,15 @@ export default function Home() {
             <div className="flex-1">
               <div className="text-sm text-gray-500">Word of the Day</div>
               <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-[#016701]">
-                Irie
+                {wordOfTheDay.word_of_the_day.word}
                 <span className="ml-3 text-base font-medium text-gray-500">
-                  /ˈiːri/
+                  {wordOfTheDay.word_of_the_day.pronunciation}
                 </span>
               </div>
-              <div className="mt-3 text-gray-700">Fine, good, pleasing</div>
+              <div className="mt-3 text-gray-700">Translation: {wordOfTheDay.meaning.definition}</div>
+              <div className="mt-2 text-sm text-gray-500 italic">Meaning: {wordOfTheDay.meaning.usage}</div>
               <div className="mt-2 text-sm text-gray-600">
-                Example: "Mi deh yah, everything irie." — Everything's good.
+                Example: {wordOfTheDay.meaning.example}
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -241,7 +254,7 @@ export default function Home() {
                   Listen
                 </button>
                 <Link
-                  href={`/word/${encodeURIComponent("Irie")}`}
+                  href={`/word/${wordOfTheDay.word_of_the_day.id}`}
                   className="px-4 py-2 border border-gray-200 rounded-md text-[#016701] text-sm"
                 >
                   View
