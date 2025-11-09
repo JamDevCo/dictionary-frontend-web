@@ -198,17 +198,12 @@ export default function Home() {
                  <p className=' font-extrabold text-[#016701]'>Thesaurus</p>
                 <ul className="max-h-48 overflow-auto">
                   {thesaurusSuggestions.map((s) => (
-                    <li
-                      key={s.id}
-                      onMouseDown={(e) => {
-                        e.preventDefault(); 
-                        setSearchQuery(s.text);
-                        setShowSuggestions(false);
-                      }}
+                    <a key={s.id} href={`/thesaurus/${s.id}`}><li
+                  
                       className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
                     >
                       {s.text}
-                    </li>
+                    </li></a>
                   ))}
                 </ul>
               </div>
