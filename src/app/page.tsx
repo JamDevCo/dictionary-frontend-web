@@ -111,10 +111,10 @@ export default function Home() {
                 Slang
               </Link>
               <Link
-                href="/about"
-                className="px-3 py-2 bg-[#016701] text-white rounded-full text-sm"
+                href="/quiz"
+                className="text-gray-700 hover:text-[#016701]"
               >
-                About
+                Quizzes
               </Link>
             </nav>
 
