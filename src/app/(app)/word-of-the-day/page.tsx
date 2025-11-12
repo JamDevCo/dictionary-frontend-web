@@ -115,6 +115,7 @@ export default function Page() {
         
       </div>
     </div>
+    
       {/* <DidYouKnow />
       <VocabularyQuiz />
       <MoreWordsOfTheDay /> */}

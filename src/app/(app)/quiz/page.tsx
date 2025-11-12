@@ -293,12 +293,12 @@ export default function Page() {
                   </button>
                 </div>
 
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                   <div className="text-sm text-gray-600">Progress</div>
                   <div className="w-40 bg-gray-200 h-2 rounded overflow-hidden">
                     <div className="h-2 bg-green-600" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
                   </div>
-                </div>
+                </div> */}
               </div>
 
               
