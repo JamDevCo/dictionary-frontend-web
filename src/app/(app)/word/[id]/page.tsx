@@ -40,6 +40,7 @@ export default function Page() {
         } else {
           setAudioUrl("");
         }
+        setIsLoading(false);
       } catch (err) {
         console.error("Failed to fetch word:", err);
       } finally {
@@ -102,7 +103,19 @@ export default function Page() {
 
   return (
     <main className="pb-[90px]">
-      <div className="max-w-6xl mx-auto p-8">
+      {isLoading && <div className="flex justify-center items-center h-screen"> 
+       
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+
+      </div>}
+      {!isLoading && <div className="max-w-6xl mx-auto p-8">
         {/* header with chevrons */}
         <div className="flex items-center justify-between mb-8">
           <button className="p-2 rounded-full hover:bg-gray-200 transition-colors">
@@ -196,7 +209,7 @@ export default function Page() {
             </aside>
           </div>
         </div>
-      </div>
+      </div>}
     </main>
   );
 }

@@ -11,16 +11,17 @@ import React, { useEffect, useState } from "react";
 export default function Page() {
 
   const [slangs, setSlangs] = useState([]);
-
+  const [loading, setLoading] = useState(true);
 
   const getSlangs = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/getSlangs`);
-    console.log(response.data);
     setSlangs(response.data);
+
   }
 
   useEffect(() => {
     getSlangs();
+    setLoading(false);
   }, [])
 
   return (
@@ -35,7 +36,17 @@ export default function Page() {
       <div className="w-full h-px bg-green-300"></div>
     </div>
      <div className="max-w-6xl mx-auto bg-gray-50 p-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {loading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+      {!loading && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {slangs.map((entry, index) => (
           <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {/* Image */}
@@ -58,7 +69,7 @@ export default function Page() {
             </div>
           </div>
         ))}
-        </div>
+      </div>}
         </div>
      
     </main>

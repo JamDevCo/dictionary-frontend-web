@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 // Note: In a real Next.js app, you would import Link like this:
 // import Link from 'next/link';
@@ -11,8 +13,15 @@ import Image from "next/image";
 // Replace this with the actual Next.js Link import in your project
 
 export default function Navbar() {
+  const router = useRouter();
    const [mobileOpen, setMobileOpen] = useState(false);
     const [query, setQuery] = useState("");
+      const [searchQuery, setSearchQuery] = useState("");
+    
+     const [showSuggestions, setShowSuggestions] = useState(false);
+      const [loading, setLoading] = useState(false);
+      const [suggestions, setSuggestions] = useState<string[]>([]);
+      const [thesaurusSuggestions, setThesaurusSuggestions] = useState<string[]>([])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +29,49 @@ export default function Navbar() {
     // Implement search functionality here
     // You can redirect to the appropriate route with the search query
   };
+
+  const addWordHistoryWord = async (id : int) => {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/addSearch`, { word_id: id })
+      .then(() => {
+        router.push(`/word/${id}`);
+      })
+      .catch((err) => {
+        console.error("Failed to update word history", err);
+      });
+  }
+
+   const clear = () => {
+    setSearchQuery("");
+    setSuggestions([]);
+    setThesaurusSuggestions([]);
+  }
+
+  const suggestiveSearch = () => {
+     if (searchQuery.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+   const delayDebounce = setTimeout(() => {
+      setLoading(true)
+      axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/autocomplete`, {
+          query: searchQuery,
+        })
+        .then((res) => {
+          // keep the existing data shape handling
+          setSuggestions(res.data.words || []);
+          setThesaurusSuggestions(res.data.meanings || []);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching suggestions:", err);
+          setLoading(false);
+        });
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(delayDebounce);
+  }
 
   return (
     <header className="bg-white/80 backdrop-blur sticky top-0 z-40 border-b">
@@ -47,8 +99,14 @@ export default function Navbar() {
                 <Link href="/slang" className="hover:text-[#0b3550]">
                   Slang
                 </Link>
-                <Link href="/thesaurus" className="hover:text-[#0b3550]">
-                  Thesaurus
+                <Link href="/proverbs" className="hover:text-[#0b3550]">
+                  Proverbs
+                </Link>
+                <Link href="/synonyms" className="hover:text-[#0b3550]">
+                  Synonyms
+                </Link>
+                <Link href="/antonyms" className="hover:text-[#0b3550]">
+                  Antonyms
                 </Link>
                 <Link href="/games" className="hover:text-[#0b3550]">
                   Games
@@ -62,8 +120,15 @@ export default function Navbar() {
                 <div className="flex w-full bg-white rounded-full shadow-sm border overflow-hidden">
                   <input
                     name="q"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    value={searchQuery}
+                onInput={() => suggestiveSearch()}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setSearchQuery(v);
+                  if (v.length === 0) clear();
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                     className="flex-1 px-4 py-2 text-sm sm:text-base outline-none"
                     placeholder="Search Jamaican Creole (e.g. bway, bruk out)"
                     aria-label="Search"
@@ -76,6 +141,44 @@ export default function Navbar() {
                     Search
                   </button>
                 </div>
+
+                     {/* Suggestive dropdown */}
+            {(showSuggestions && (suggestions.length > 0 || thesaurusSuggestions.length > 0)) && (
+              <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50 max-w-3xl mx-auto">
+                {loading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+                {!loading && <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="font-extrabold text-[#016701] mb-2">Dictionary</p>
+                    <ul className="max-h-48 overflow-auto">
+                      {suggestions.map((s: any) => (
+                        <a key={s.id} onClick={() => addWordHistoryWord(s.id)}  className="block px-3 py-2 text-sm hover:bg-gray-50">
+                          {s.text}
+                        </a>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-extrabold text-[#016701] mb-2">Thesaurus</p>
+                    <ul className="max-h-48 overflow-auto">
+                      {thesaurusSuggestions.map((s: any) => (
+                        <a key={s.id} href={`/thesaurus/${s.id}`} className="block px-3 py-2 text-sm hover:bg-gray-50">
+                          {s.text}
+                        </a>
+                      ))}
+                    </ul>
+                  </div>
+                </div>}
+              </div>
+            )}
               </form>
             </div>
 
@@ -173,10 +276,16 @@ export default function Navbar() {
                   Slang
                 </Link>
                 <Link
-                  href="/thesaurus"
+                  href="/synonyms"
                   className="block px-2 py-2 rounded hover:bg-gray-50"
                 >
-                  Thesaurus
+                  Synonyms
+                </Link>
+                 <Link
+                  href="/antonyms"
+                  className="block px-2 py-2 rounded hover:bg-gray-50"
+                >
+                  Antonyms
                 </Link>
                 <Link
                   href="/games"

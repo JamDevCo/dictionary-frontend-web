@@ -3,25 +3,46 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
+  const router = useRouter();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [wordOfTheDay, setWordOfTheDay] = useState({word_of_the_day:{word:'', pronunciation:''}, meaning:{definition:'', example:'', usage:''}});
-
+  const [topTen, setTopTen] = useState([]);
   // predictive text (hard-coded suggestions for now)
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [thesaurusSuggestions, setThesaurusSuggestions] = useState<string[]>([])
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const clear = () => {
     setSearchQuery("");
     setSuggestions([]);
     setThesaurusSuggestions([]);
+  }
+
+  const addWordHistoryWord = async (id : int) => {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/addSearch`, { word_id: id })
+      .then(() => {
+        router.push(`/word/${id}`);
+      })
+      .catch((err) => {
+        console.error("Failed to update word history", err);
+      });
+  }
+
+  const getTopTen = async () => {
+    let top = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/getTopTenSearches`);
+    console.log(top.data);
+    setTopTen(top.data);
   }
 
   const suggestiveSearch = () => {
@@ -31,7 +52,7 @@ export default function Home() {
     }
 
    const delayDebounce = setTimeout(() => {
-      setLoading(true);
+      setSearchLoading(true)
       axios
         .post(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/autocomplete`, {
           query: searchQuery,
@@ -40,11 +61,11 @@ export default function Home() {
           // keep the existing data shape handling
           setSuggestions(res.data.words || []);
           setThesaurusSuggestions(res.data.meanings || []);
-          setLoading(false);
+          setSearchLoading(false);
         })
         .catch((err) => {
           console.error("Error fetching suggestions:", err);
-          setLoading(false);
+          setSearchLoading(false);
         });
     }, 300); // 300ms debounce
 
@@ -60,8 +81,12 @@ export default function Home() {
     }
   }
 
+
+
   useEffect(() => {
      getWordOfTheDay()
+     getTopTen()
+     setLoading(false);
   }, []);
 
   return (
@@ -83,10 +108,9 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-3">
               <Link href="/dictionary" className="px-3 py-1 bg-yellow-400 text-[#053a12] rounded">Dictionary</Link>
               <Link href="/thesaurus" className="px-3 py-1 bg-white text-[#016701] rounded">Thesaurus</Link>
-              <Link href="/quiz" className="text-sm hover:underline">Quizzes</Link>
+              <Link href="/games" className="text-sm hover:underline">Quizzes</Link>
               <Link href="/slang" className="text-sm hover:underline">Slang</Link>
               <Link href="/proverbs" className="text-sm hover:underline">Proverbs</Link>
-              <Link href="/rhymes" className="text-sm hover:underline">Rhymes</Link>
               <Link href="/synonyms" className="text-sm hover:underline">Synonyms</Link>
               <Link href="/antonyms" className="text-sm hover:underline">Antonyms</Link>
             </div>
@@ -140,18 +164,28 @@ export default function Home() {
                 placeholder="Search Jamaican Creole — type a word or phrase"
                 aria-label="Search"
               />
-              <button type="submit" className="px-4 py-3 bg-[#053a12] text-white rounded-r-full">Search</button>
+              {/* <button type="submit" className="px-4 py-3 bg-[#053a12] text-white rounded-r-full">Search</button> */}
             </div>
 
             {/* Suggestive dropdown */}
             {(showSuggestions && (suggestions.length > 0 || thesaurusSuggestions.length > 0)) && (
               <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50 max-w-3xl mx-auto">
-                <div className="grid grid-cols-2 gap-4">
+                {searchLoading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+                {!searchLoading && <div className="">
                   <div>
                     <p className="font-extrabold text-[#016701] mb-2">Dictionary</p>
                     <ul className="max-h-48 overflow-auto">
                       {suggestions.map((s: any) => (
-                        <a key={s.id} href={`/word/${s.id}`} className="block px-3 py-2 text-sm hover:bg-gray-50">
+                        <a key={s.id} onClick={() => addWordHistoryWord(s.id)}  className="block px-3 py-2 text-sm hover:bg-gray-50">
                           {s.text}
                         </a>
                       ))}
@@ -167,7 +201,7 @@ export default function Home() {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </div>}
               </div>
             )}
 
@@ -218,7 +252,7 @@ export default function Home() {
       {/* Main three-column area: Games & Quizzes | Word of the day | Top 10 */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Games & Quizzes */}
+         
           <div className="bg-white rounded-lg shadow p-4">
             <h3 className="text-lg font-semibold text-[#053a12] mb-3">Games and Quizzes</h3>
             <div className="grid grid-cols-2 gap-3">
@@ -243,6 +277,17 @@ export default function Home() {
           {/* Word of the day */}
           <div className="bg-white rounded-lg shadow p-6 text-center">
             <div className="text-sm text-gray-500">Word of the day</div>
+            {loading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+             {!loading && <div>
             <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-[#016701]">
               {wordOfTheDay.word_of_the_day.word}
               <span className="ml-3 text-base font-medium text-gray-500">{wordOfTheDay.word_of_the_day.pronunciation}</span>
@@ -260,12 +305,28 @@ export default function Home() {
               <a href="/word-of-the-day" className="px-4 py-2 bg-gray-50 rounded">More words</a>
             </div>
           </div>
-
+          }
+  </div>
           {/* Top 10 Words today */}
           <aside className="bg-white rounded-lg shadow p-4">
             <h4 className="text-lg font-semibold text-[#053a12]">Top 10 Words today</h4>
-            <ol className="mt-3 list-decimal list-inside space-y-1 text-sm text-gray-700">
-              <li>Duppy</li>
+            {loading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+           {!loading && <ol className="mt-3 list-decimal list-inside space-y-1 text-sm text-gray-700">
+              {topTen.map((word: any) => (
+                <li key={word.word_id}>
+                  <a href={`/word/${word.word_id}`} className="hover:underline">{word.word.word}</a>
+                </li>
+              ))}
+              {/* <li>Duppy</li>
               <li>Riva Muma</li>
               <li>Heng</li>
               <li>Bulla</li>
@@ -274,12 +335,12 @@ export default function Home() {
               <li>Nyam</li>
               <li>Mada</li>
               <li>Bredda</li>
-              <li>Fren</li>
-            </ol>
+              <li>Fren</li> */}
+            </ol>}
           </aside>
         </div>
 
-         <div className="bg-[#f2f9f2] rounded-xl px-4 mt-10 sm:px-6 lg:px-8 ">
+         {/* <div className="bg-[#f2f9f2] rounded-xl px-4 mt-10 sm:px-6 lg:px-8 ">
   <div className="flex justify-between items-center mb-4">
     <h2 className="text-lg font-semibold">Grammer & Usage</h2>
     <a href="#" className="text-sm text-green-700 hover:underline">See All &gt;</a>
@@ -314,7 +375,7 @@ export default function Home() {
       </div>
     </div>
   </div>
-</div>
+        </div>
 
 <div className="space-y-8 bg-[#f2f9f2] p-6 rounded-xl">
 
@@ -383,7 +444,7 @@ export default function Home() {
       </div>
     </div>
   </div>
-</div>
+</div> */}
 
       </section>
 

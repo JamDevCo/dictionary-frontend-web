@@ -29,8 +29,8 @@ const HomeHeader: React.FC = () => {
     { label: "Word of the Day", href: "/word-of-the-day" },
     { label: "Proverbs", href: "/proverbs" },
     { label: "Slang", href: "/slang" },
-    { label: "Rhymes", href: "/rhymes" },
-    { label: "Thesaurus", href: "/thesaurus" },
+    { label: "Antonyms", href: "/antonyms" },
+    { label: "Synonyms", href: "/synonym" },
   ];
 
   // fetch suggestions when searchQuery changes

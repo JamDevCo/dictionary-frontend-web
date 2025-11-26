@@ -24,15 +24,17 @@ export default function Home() {
 
    const [hoveredWord, setHoveredWord] = useState<string | null>(null);
    const [antonyms, setAntonyms] = useState([]);
+   const [loading, setLoading] = useState(true);
 
    const getAntonyms = async () => {
      let result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/getAntonyms`);
-     console.log(result.data);
       setAntonyms(result.data);
+      
    }
 
   useEffect(() => {
     getAntonyms();
+    setLoading(false);
   }, []);
   
     const AntonymGroups: AntonymGroup[] = [
@@ -126,7 +128,17 @@ export default function Home() {
         description={`In English, an antonym is a word that means the opposite of another word. For example, "hot" and "cold" are antonyms, as are "good" and "bad". The term "antonym" comes from the Greek words anti (meaning "opposite") and onym (meaning "name"). `}
       />
       <div className="max-w-6xl mx-auto bg-gray-50 p-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-20">
+        {loading && (
+  <div className="w-full flex justify-center items-center py-10">
+    <div role="status">
+       <div className="flex items-center justify-center">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-green-600 border-t-transparent"></div>
+</div>
+      
+    </div>
+  </div>
+)}
+      {!loading && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-20">
         {antonyms.map((group, index) => (
           <div key={index} className="relative">
             {/* Word Button */}
@@ -182,7 +194,7 @@ export default function Home() {
             </div>
           </div>
         ))}
-      </div>
+      </div>}
     </div>
     </main>
   );

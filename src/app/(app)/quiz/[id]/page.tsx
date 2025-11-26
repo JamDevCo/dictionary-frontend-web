@@ -2,8 +2,11 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useParams } from "next/navigation";
 
 export default function Page() {
+   const params = useParams();
+      const id = params?.id;
   const [timerOn, setTimerOn] = useState(false);
   const [questions, setQuestions] = useState<any[]>([]);
   const [selectedCount, setSelectedCount] = useState<number>(5);
@@ -26,7 +29,7 @@ export default function Page() {
     setIsFetching(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/getQuizzes/${selectedCount}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/getQuizzes/${selectedCount}/${id}`
       );
 
       setQuestions(response.data || []);
