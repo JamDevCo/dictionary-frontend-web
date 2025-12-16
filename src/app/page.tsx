@@ -76,6 +76,7 @@ export default function Home() {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/adjustWordOfTheDay`);
       setWordOfTheDay(res.data.data);
+      console.log(res.data.data);
     } catch (err) {
       console.error("Failed to load word of the day", err);
     }
@@ -256,22 +257,18 @@ export default function Home() {
           <div className="bg-white rounded-lg shadow p-4">
             <h3 className="text-lg font-semibold text-[#053a12] mb-3">Games and Quizzes</h3>
             <div className="grid grid-cols-2 gap-3">
-              <Link href="/games/1" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">Guess the Animal</div>
+              <Link href="/quiz/1" className="block border rounded overflow-hidden">
+                <div className="p-3 text-sm">Fill in the blank</div>
               </Link>
-              <Link href="/games/2" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">True or False</div>
+              <Link href="/quiz/2" className="block border rounded overflow-hidden">
+                <div className="p-3 text-sm">Multiple Choice</div>
               </Link>
-              <Link href="/games/3" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">Choose the picture</div>
+              <Link href="/quiz/3" className="block border rounded overflow-hidden">
+                <div className="p-3 text-sm">Translate Language</div>
               </Link>
-              <Link href="/games/4" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">More Games</div>
-              </Link>
+             
             </div>
-            <div className="mt-3 text-center">
-              <Link href="/games" className="text-sm text-[#016701]">More Games and Quizzes</Link>
-            </div>
+            
           </div>
 
           {/* Word of the day */}
@@ -297,8 +294,20 @@ export default function Home() {
             <div className="mt-3 text-sm text-gray-600">Example: {wordOfTheDay.meaning.example}</div>
             <div className="mt-6">
               <audio controls className="w-full rounded-md">
-                <source src="/audio/irie.mp3" type="audio/mpeg" />
-              </audio>
+  <source
+    src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${wordOfTheDay.word_of_the_day.audio_path}`}
+    type="audio/mpeg"
+  />
+  <source
+    src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${wordOfTheDay.word_of_the_day.audio_path}`}
+    type="audio/wav"
+  />
+  <source
+    src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${wordOfTheDay.word_of_the_day.audio_path}`}
+    type="audio/ogg"
+  />
+  Your browser does not support the audio element.
+</audio>
             </div>
             <div className="mt-4 flex justify-center gap-3">
               <Link href={`/word/${wordOfTheDay.word_of_the_day.id}`} className="px-4 py-2 border rounded text-[#016701]">View</Link>

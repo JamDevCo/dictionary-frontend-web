@@ -33,6 +33,7 @@ export default function Page() {
       );
 
       setQuestions(response.data || []);
+      console.log("Fetched questions:", response.data);
       setCurrentIndex(0);
       setAnswers({});
       setShowResults(false);
@@ -267,7 +268,7 @@ export default function Page() {
               </div>
 
               <div className="grid gap-3">
-                {(questions[currentIndex].options || []).map((opt: string) => {
+                {(JSON.parse(questions[currentIndex].options) || []).map((opt: string) => {
                   const selected = answers[currentIndex] === opt;
                   return (
                     <button

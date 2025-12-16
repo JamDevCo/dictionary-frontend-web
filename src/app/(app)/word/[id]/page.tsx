@@ -33,29 +33,16 @@ export default function Page() {
         setPartOfSpeech(data?.meaning?.part_of_speech || "verb");
         setDefinition(data?.meaning?.definition || "");
         setExample(data?.meaning?.example || "");
-        if (data?.word?.audio_url) {
-          setAudioUrl(data.word.audio_url);
-        } else if (data?.word?.audio_path) {
-          setAudioUrl(`${process.env.NEXT_PUBLIC_API_URL}/${data.word.audio_path}`);
-        } else {
-          setAudioUrl("");
-        }
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Failed to fetch word:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+        setAudioUrl(`${process.env.NEXT_PUBLIC_API_URL}/storage/${data.word.audio_path}`);
+        // if (data?.word?.audio_url) {
+        //   setAudioUrl(data.word.audio_url);
+        // } else if (data?.word?.audio_path) {
+        //   setAudioUrl(`${process.env.NEXT_PUBLIC_API_URL}/${data.word.audio_path}`);
+        // } 
+     
+        // console.log("Fetched word data:", data.word.audio_path);
 
-  useEffect(() => {
-    if (!id) return;
-    getWord();
-  }, [id]);
-
-  // sync audio src when audioUrl changes
-  useEffect(() => {
-    if (!audioUrl) {
+         if (!audioUrl) {
       if (audioRef.current) {
         try { audioRef.current.pause(); } catch {}
         audioRef.current = null;
@@ -69,16 +56,32 @@ export default function Page() {
     } else if (audioRef.current.src !== audioUrl) {
       audioRef.current.src = audioUrl;
     }
-  }, [audioUrl]);
 
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        try { audioRef.current.pause(); } catch {}
-        audioRef.current = null;
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Failed to fetch word:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
-  }, []);
+
+  useEffect(() => {
+    getWord();
+  }, [audioUrl]);
+
+  // sync audio src when audioUrl changes
+  // useEffect(() => {
+   
+  // }, [audioUrl]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (audioRef.current) {
+  //       try { audioRef.current.pause(); } catch {}
+  //       audioRef.current = null;
+  //     }
+  //   };
+  // }, []);
 
   const toggleAudio = async () => {
     if (!audioUrl) return;
