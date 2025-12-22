@@ -220,7 +220,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <Link href="/games" className="block bg-white rounded-lg shadow overflow-hidden hover:shadow-lg">
             <div className="relative h-40 bg-gray-100">
-              <Image src="/quiz.jpeg" alt="Games" fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
+              <Image src="/quiz/2.jpeg" alt="Games" fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
             </div>
             <div className="p-4 text-center">
               <div className="font-semibold">Quizzes</div>
@@ -255,19 +255,17 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
          
           <div className="bg-white rounded-lg shadow p-4">
-            <h3 className="text-lg font-semibold text-[#053a12] mb-3">Games and Quizzes</h3>
-            <div className="grid grid-cols-2 gap-3">
-              <Link href="/quiz/1" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">Fill in the blank</div>
-              </Link>
-              <Link href="/quiz/2" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">Multiple Choice</div>
-              </Link>
-              <Link href="/quiz/3" className="block border rounded overflow-hidden">
-                <div className="p-3 text-sm">Translate Language</div>
-              </Link>
-             
-            </div>
+            <div className="block  overflow-hidden">
+                        <div className="relative h-40 bg-gray-100">
+                          <Image src="/multiple.jpg" alt="True or False" fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
+                        </div>
+                        <div className="p-4 text-center">
+                          <div className="font-semibold">Multiple choice</div>
+                          <div className="text-xs text-gray-500">Choose from multiple answers to figure the question</div>
+                            <Link href='/quiz/2'><button className='h-10 w-80 bg-green-600 mt-5 rounded-lg font-bold text-white'>Play</button></Link>
+            
+                        </div>
+                      </div>
             
           </div>
 
