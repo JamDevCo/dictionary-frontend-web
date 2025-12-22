@@ -11,17 +11,17 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [words, setWords] = useState([]);
 
-  const getWordsByLetter = async (letter) => {
+  const getThesaurusByLetter = async (letter) => {
     setLoading(true);
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getWordsByLetter/${letter}`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/getThesaurusByLetter/${letter}`
     );
     setWords(response.data);
     setLoading(false);
   };
 
   useEffect(() => {
-    getWordsByLetter("A");
+    getThesaurusByLetter("A");
   }, []);
 
   return (
@@ -40,7 +40,7 @@ export default function Page() {
           </p>
         </div>
       </div>
-      <Alphabets load={getWordsByLetter} />
+      <Alphabets load={getThesaurusByLetter} />
 
       {loading && <div className="flex justify-center items-center"> 
        
@@ -59,10 +59,10 @@ export default function Page() {
         {words.map((wordItem) => (
           <div key={wordItem.id} className="bg-white p-4  shadow mb-4 mx-10">
             <Link
-              href={`/word/${wordItem.id}`}
+              href={`/thesaurus/${wordItem.id}`}
               className="text-xl font-semibold text-green-700 hover:underline"
             >
-              {wordItem.word}
+              {wordItem.definition}
             </Link>
           </div>
         ))}

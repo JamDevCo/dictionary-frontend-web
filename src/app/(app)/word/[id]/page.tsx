@@ -179,7 +179,7 @@ export default function Page() {
             </div>
 
             {/* Newsletter card (right) */}
-            <aside className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            {/* <aside className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Build your vocabulary!</h3>
                 <p className="text-gray-700 mb-1">Get Word of the Day</p>
@@ -190,7 +190,7 @@ export default function Page() {
                 <div className="w-24 h-px bg-gray-300"></div>
               </div>
 
-              <form onSubmit={(e)=>{ e.preventDefault(); /* UI-only */ }} className="space-y-4">
+              <form onSubmit={(e)=>{ e.preventDefault();}} className="space-y-4">
                 <input
                   type="email"
                   placeholder="Your email address"
@@ -209,7 +209,7 @@ export default function Page() {
               <div className="flex justify-center mt-6">
                 <div className="w-24 h-px bg-gray-300"></div>
               </div>
-            </aside>
+            </aside> */}
           </div>
         </div>
       </div>}

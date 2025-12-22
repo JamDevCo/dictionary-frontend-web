@@ -91,7 +91,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-100 text-gray-900">
+    <main className="min-h-screen   text-gray-900">
       {/* Top green header (site nav + mini controls) */}
       <header className="bg-green-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,8 +108,8 @@ export default function Home() {
 
             <div className="hidden md:flex items-center gap-3">
               <Link href="/dictionary" className="px-3 py-1 bg-yellow-400 text-[#053a12] rounded">Dictionary</Link>
-              <Link href="/thesaurus" className="px-3 py-1 bg-white text-[#016701] rounded">Thesaurus</Link>
-              <Link href="/games" className="text-sm hover:underline">Quizzes</Link>
+              <Link href="/thesauruses" className="px-3 py-1 bg-white text-[#016701] rounded">Thesaurus</Link>
+              <Link href="/quiz/2" className="text-sm hover:underline">Quizzes</Link>
               <Link href="/slang" className="text-sm hover:underline">Slang</Link>
               <Link href="/proverbs" className="text-sm hover:underline">Proverbs</Link>
               <Link href="/synonyms" className="text-sm hover:underline">Synonyms</Link>

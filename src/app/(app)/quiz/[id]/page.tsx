@@ -268,11 +268,11 @@ export default function Page() {
               </div>
 
               <div className="grid gap-3">
-                {(JSON.parse(questions[currentIndex].options) || []).map((opt: string) => {
+                {(JSON.parse(questions[currentIndex].options) || []).map((opt: string, index: number) => {
                   const selected = answers[currentIndex] === opt;
                   return (
                     <button
-                      key={opt}
+                      key={index}
                       onClick={() => selectOption(opt)}
                       className={`text-left w-full px-4 py-3 rounded-md border transition ${selected ? "bg-green-700 text-white border-green-700" : "bg-white text-gray-800 border-gray-200 hover:bg-gray-50"}`}
                     >
