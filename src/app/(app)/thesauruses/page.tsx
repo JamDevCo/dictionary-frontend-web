@@ -29,14 +29,11 @@ export default function Page() {
       <div className="flex items-center justify-between mb-8 px-10">
         <div className="text-center">
           <h1 className="text-4xl mb-3 font-bold text-green-700 mb-1">
-            Browse our Dictionary
+            Browse our Thesaurus
           </h1>
           <p className="text-sm text-gray-500 text-lg">
-            Improve clarity and expression with the Jamaican Creole Dictionary.
-            Our intelligent ranking system helps you quickly find the right word
-            from a rich collection of Creole terms, related expressions, and
-            antonyms. An essential reference for understanding and using
-            Jamaican Creole accurately.
+            Enhance clarity and expression with the Jamaican Creole Thesaurus.
+ Discover the most suitable synonyms, related expressions, and contrasting terms from a rich collection of Creole vocabulary. An essential reference for expanding your word choice and using Jamaican Creole with accuracy and confidence.
           </p>
         </div>
       </div>

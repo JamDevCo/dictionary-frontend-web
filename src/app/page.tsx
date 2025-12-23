@@ -218,7 +218,7 @@ export default function Home() {
       {/* Feature cards row */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <Link href="/games" className="block bg-white rounded-lg shadow overflow-hidden hover:shadow-lg">
+          <Link href="/quiz/2" className="block bg-white rounded-lg shadow overflow-hidden hover:shadow-lg">
             <div className="relative h-40 bg-gray-100">
               <Image src="/quiz/2.jpeg" alt="Games" fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
             </div>
