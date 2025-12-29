@@ -76,7 +76,6 @@ export default function Home() {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/adjustWordOfTheDay`);
       setWordOfTheDay(res.data.data);
-      console.log(res.data.data);
     } catch (err) {
       console.error("Failed to load word of the day", err);
     }
