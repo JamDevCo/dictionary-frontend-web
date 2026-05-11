@@ -5,21 +5,25 @@ import Link from "next/link";
 import axios from "axios";
 
 export default function Home() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   // predictive text (hard-coded suggestions for now)
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  type Suggestion = { id: string | number; text: string };
 
-  const [thesaurusSuggestions, setThesaurusSuggestions] = useState<string[]>([])
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+
+  const [thesaurusSuggestions, setThesaurusSuggestions] = useState<
+    Suggestion[]
+  >([]);
 
   // const matches = suggestions.filter((s) =>
   //   s.toLowerCase().includes(searchQuery.trim().toLowerCase())
   // );
 
- 
   const [loading, setLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +31,7 @@ export default function Home() {
     setSearchQuery("");
     setSuggestions([]);
     setThesaurusSuggestions([]);
-  }
+  };
 
   useEffect(() => {
     if (searchQuery.length < 2) {
@@ -38,7 +42,7 @@ export default function Home() {
     const delayDebounce = setTimeout(() => {
       setLoading(true);
       axios
-        .post(`http://localhost:8000/api/autocomplete`, {
+        .post(`${apiUrl}/api/autocomplete`, {
           query: searchQuery,
         })
         .then((res) => {
@@ -57,7 +61,6 @@ export default function Home() {
   }, [searchQuery]);
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
-      
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -150,7 +153,6 @@ export default function Home() {
         </div>
       </header>
 
-    
       <section className="relative bg-[url('/flag.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-24 text-center">
@@ -171,55 +173,58 @@ export default function Home() {
             <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow">
               <input
                 name="q"
-                
-                onChange={(e) => e.target.value.length == 0 ? () => clear() : setSearchQuery(e.target.value)}
+                onChange={(e) =>
+                  e.target.value.length == 0
+                    ? () => clear()
+                    : setSearchQuery(e.target.value)
+                }
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 className="flex-1 px-5 py-3 text-gray-800 outline-none rounded-l-full"
                 placeholder="Search Jamaican Creole — type a word or phrase"
                 aria-label="Search"
               />
-             
             </div>
 
             {(suggestions.length > 0 || thesaurusSuggestions.length > 0) && (
               <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
-                <p className=' font-extrabold text-[#016701]'>Dictionary</p>
+                <p className="font-extrabold text-[#016701]">Dictionary</p>
                 <ul className="max-h-48 overflow-auto mb-5">
                   {suggestions.map((s) => (
-                    <a key={s.id} href={`/word/${s.id}`}><li
-                      className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
-                    >
-                      {s.text}
-                    </li></a>
+                    <a key={s.id} href={`/word/${s.id}`}>
+                      <li className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer">
+                        {s.text}
+                      </li>
+                    </a>
                   ))}
                 </ul>
 
-                 <p className=' font-extrabold text-[#016701]'>Thesaurus</p>
+                <p className=" font-extrabold text-[#016701]">Thesaurus</p>
                 <ul className="max-h-48 overflow-auto">
                   {thesaurusSuggestions.map((s) => (
-                    <a key={s.id} href={`/thesaurus/${s.id}`}><li
-                  
-                      className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer"
-                    >
-                      {s.text}
-                    </li></a>
+                    <a key={s.id} href={`/thesaurus/${s.id}`}>
+                      <li className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer">
+                        {s.text}
+                      </li>
+                    </a>
                   ))}
                 </ul>
               </div>
             )}
 
-            {(suggestions.length == 0 && thesaurusSuggestions.length == 0 ) && searchQuery.length != 0 && (
-              <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
-                <p className=' font-extrabold text-[#016701]'>No results found</p>
-                
-              </div>
-            )}
+            {suggestions.length == 0 &&
+              thesaurusSuggestions.length == 0 &&
+              searchQuery.length != 0 && (
+                <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
+                  <p className=" font-extrabold text-[#016701]">
+                    No results found
+                  </p>
+                </div>
+              )}
           </form>
         </div>
       </section>
 
-      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-6 ring-1 ring-black/5">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -256,17 +261,15 @@ export default function Home() {
             </div>
 
             <div className="w-full sm:w-48">
-              <audio controls className="w-full rounded-md">
+              {/* <audio controls className="w-full rounded-md">
                 <source src="/audio/irie.mp3" type="audio/mpeg" />
-              </audio>
+              </audio> */}
             </div>
           </div>
         </div>
       </section>
 
-      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-2xl font-semibold text-[#053a12]">
@@ -369,7 +372,6 @@ export default function Home() {
             </div>
           </div>
 
-          
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-xl font-semibold text-[#053a12]">
               Pronunciation & examples
@@ -384,10 +386,10 @@ export default function Home() {
                     <div className="font-medium">Irie</div>
                     <div className="text-xs text-gray-500">/ˈiːri/</div>
                   </div>
-                  <audio controls className="w-48">
+                  {/* <audio controls className="w-48">
                     <source src="/audio/sample.mp3" type="audio/mpeg" />
                     Your browser does not support the audio element.
-                  </audio>
+                  </audio> */}
                 </div>
               </div>
 
@@ -403,7 +405,6 @@ export default function Home() {
             </div>
           </div>
 
-          
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-xl font-semibold text-[#053a12]">
               Cultural notes
@@ -426,7 +427,6 @@ export default function Home() {
           </div>
         </div>
 
-        
         <aside className="space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h4 className="text-lg font-semibold text-[#053a12]">Categories</h4>
@@ -554,8 +554,6 @@ export default function Home() {
           </div>
         </aside>
       </section>
-
-      
     </main>
   );
 }

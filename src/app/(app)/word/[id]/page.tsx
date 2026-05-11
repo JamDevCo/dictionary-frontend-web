@@ -19,7 +19,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
 
   // audio handling
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
 

@@ -7,12 +7,13 @@ import Link from "next/link";
 import axios from "axios";
 
 const HomeHeader: React.FC = () => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"dictionary" | "thesaurus">(
-    "dictionary"
+    "dictionary",
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<{ text: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +44,7 @@ const HomeHeader: React.FC = () => {
     const delayDebounce = setTimeout(() => {
       setLoading(true);
       axios
-        .post(`http://localhost:8000/api/autocomplete`, {
+        .post(`${apiUrl}/api/autocomplete`, {
           query: searchQuery,
           type: activeTab,
         })
@@ -82,7 +83,7 @@ const HomeHeader: React.FC = () => {
       {/* Top Navigation */}
       <nav className="flex justify-between items-center px-3 py-1 sm:px-6 lg:px-8 font-sans font-bold">
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex flex gap-8">
+        <div className="hidden lg:flex gap-8">
           {navItems.slice(0, 3).map((item) => (
             <Link
               key={item.label}
@@ -181,43 +182,41 @@ const HomeHeader: React.FC = () => {
           >
             Thesaurus
           </button>
-          
-            <div className="flex items-center bg-white  flex-1">
-              <div className="flex-1 flex flex-col relative">
-                <input
-                  type="text"
-                  placeholder={`Search ${activeTab}...`}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="px-4  py-3 sm:px-6 sm:py-4 w-full outline-none text-gray-800 text-sm sm:text-base"
-                  aria-label={`Search ${activeTab}`}
-                />
-              </div>
 
-              <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
-                <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </button>
+          <div className="flex items-center bg-white  flex-1">
+            <div className="flex-1 flex flex-col relative">
+              <input
+                type="text"
+                placeholder={`Search ${activeTab}...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="px-4  py-3 sm:px-6 sm:py-4 w-full outline-none text-gray-800 text-sm sm:text-base"
+                aria-label={`Search ${activeTab}`}
+              />
             </div>
-           
+
+            <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
+              <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
           </div>
-      
+        </div>
       </div>
-  {suggestions.length > 0 && (
-              <ul className="absolute flex flex-col m-auto left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 w-1/2 mt-0 ">
-                {suggestions.map((word, i) => (
-                  <li
-                    key={i}
-                    onClick={() => {
-                      setSearchQuery(word.text);
-                      setSuggestions([]);
-                    }}
-                    className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
-                  >
-                    {word.text}
-                  </li>
-                ))}
-              </ul>
-            )}
+      {suggestions.length > 0 && (
+        <ul className="absolute flex flex-col m-auto left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 w-1/2 mt-0 ">
+          {suggestions.map((word, i) => (
+            <li
+              key={i}
+              onClick={() => {
+                setSearchQuery(word.text);
+                setSuggestions([]);
+              }}
+              className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
+            >
+              {word.text}
+            </li>
+          ))}
+        </ul>
+      )}
       {/* Suggestions Dropdown */}
 
       {/* Feature Cards */}

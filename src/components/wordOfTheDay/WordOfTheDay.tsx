@@ -78,7 +78,7 @@ export default function WordOfTheDay() {
         </h3>
         <p className="text-gray-700 leading-relaxed mb-4">{definition}</p>
         <p className="text-gray-600 italic text-sm leading-relaxed">
-          // {example}
+          {`// ${example}`}
         </p>
       </div>
 
