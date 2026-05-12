@@ -1,19 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Subscribe with email:", email);
-    // Add subscription logic here
-  };
-
   return (
       <footer className="bg-[#016701] text-white mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between">

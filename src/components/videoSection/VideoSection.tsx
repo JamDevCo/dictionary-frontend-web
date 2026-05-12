@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from 'next/image';
 import { ChevronRight } from "lucide-react";
 
 interface VideoItem {
@@ -76,9 +77,11 @@ export default function VideosSection() {
                     <div className="grid grid-cols-4 grid-rows-2 h-48">
                       {/* Image placeholders - replace with actual images */}
                       <div className="bg-gray-400 border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=200&h=150&fit=crop"
                           alt="Iguana"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -86,37 +89,47 @@ export default function VideosSection() {
                         <span className="text-red-500 text-4xl">🦩</span>
                       </div>
                       <div className="bg-white border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=200&h=150&fit=crop"
                           alt="Beach"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-cyan-400 border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=200&h=150&fit=crop"
                           alt="Tropical beach"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-teal-500 border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=150&fit=crop"
                           alt="Nature"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-cyan-300 border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=200&h=150&fit=crop"
                           alt="Ocean"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-blue-400 border border-white">
-                        <img
+                        <Image
                           src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=200&h=150&fit=crop"
                           alt="Beach"
+                          width={200}
+                          height={96}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -134,7 +147,7 @@ export default function VideosSection() {
                   Other Creoles in the Caribbean
                 </h3>
                 <p className="text-base text-gray-700">
-                  Let's hear different creoles from Caribbean countries
+                  Let&apos;s hear different creoles from Caribbean countries
                 </p>
               </div>
             </div>

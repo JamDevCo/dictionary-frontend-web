@@ -10,8 +10,6 @@ export default function Page() {
   const id = params?.id ?? "nuff";
   const [loading, setLoading] = useState(true);
 
-  
-
   const [word, setWord] = useState<Word>({ word: "", pronounciation: "" });
   const [meaning, setMeaning] = useState<Meaning>({
     definition: "",
@@ -20,64 +18,19 @@ export default function Page() {
   });
   const [thesaurusList, setThesaurusList] = useState<ThesaurusItem[]>([]);
 
-  const pos = "adjective";
-  const pron = "noff";
-
-  const getThesarusinformation = async () => {
-    setLoading(true);
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getThesaurus/${id}`,
-    );
-    setWord(response.data.word);
-    setMeaning(response.data.word_meaning);
-    setThesaurusList(response.data.list);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getThesarusinformation = async () => {
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/getThesaurus/${id}`,
+      );
+      setWord(response.data.word);
+      setMeaning(response.data.word_meaning);
+      setThesaurusList(response.data.list);
+      setLoading(false);
+    };
     getThesarusinformation();
-  }, []);
-
-  const senses = [
-    {
-      title: "1. as in many",
-      gloss: "Large in quantity",
-      example: "e.g. Di banana dem nuff dis season",
-      synonyms: [
-        "whole Yeep",
-        "a lot",
-        "plenti",
-        "pile",
-        "bongle",
-        "chunk",
-        "quantity",
-        "stack",
-        "volume",
-        "platefull",
-        "reams",
-        "wealth",
-        "truck load",
-        "thousands",
-        "heap",
-        "boat load",
-      ],
-      antonyms: [
-        "likkle bit",
-        "a copple",
-        "shaatege",
-        "scrappings",
-        "an full",
-        "grain",
-      ],
-    },
-    {
-      title: "2. as in prying",
-      gloss: "excessively interested in a person's private affairs.",
-      example: "e.g. Close di window dem. Him too nuff.",
-      synonyms: ["extra", "fass", "nosy", "nuffesha", "fassie"],
-      antonyms: ["umble", "mannas", "modes", "shai", "decent"],
-    },
-  ];
+  }, [id]);
 
   return (
     <main className="min-h-screen  bg-gray-50 py-6">

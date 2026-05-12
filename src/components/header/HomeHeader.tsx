@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Search, ChevronDown, Menu, X } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import FeatureCard from "@/components/card/FeatureCard";
 import Image from "next/image";
 import Link from "next/link";
@@ -59,7 +59,7 @@ const HomeHeader: React.FC = () => {
     }, 300); // 300ms debounce
 
     return () => clearTimeout(delayDebounce);
-  }, [searchQuery]);
+  }, [searchQuery, activeTab, apiUrl]);
 
   // Hide dropdown when clicking outside
   useEffect(() => {
@@ -201,7 +201,7 @@ const HomeHeader: React.FC = () => {
           </div>
         </div>
       </div>
-      {suggestions.length > 0 && (
+      {suggestions.length > 0 || !loading && (
         <ul className="absolute flex flex-col m-auto left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 w-1/2 mt-0 ">
           {suggestions.map((word, i) => (
             <li

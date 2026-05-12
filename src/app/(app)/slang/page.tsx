@@ -1,4 +1,3 @@
-import AntonymsList from "@/components/antonyms/antonymsList";
 import Header from "@/components/header/Header";
 import Quiz from "@/components/quiz/Quiz";
 import VocabularyQuiz from "@/components/quiz/VocabularyQuiz";

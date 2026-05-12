@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -105,9 +106,11 @@ export default function VocabularyQuiz() {
                 className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-64 text-center"
               >
                 <div className="mb-4 h-32 overflow-hidden rounded-lg">
-                  <img
+                  <Image
                     src={card.image}
                     alt={card.title}
+                    width={256}
+                    height={128}
                     className="w-full h-full object-cover"
                   />
                 </div>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 
 interface GrammarCardProps {
   title: string
@@ -13,9 +14,11 @@ export default function GrammarCard({ title, image, onClick }: GrammarCardProps)
     >
       {/* Image */}
       <div className="h-40 overflow-hidden bg-gray-100">
-        <img 
-          src={image} 
+        <Image
+          src={image}
           alt={title}
+          width={400}
+          height={160}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           loading="lazy"
         />

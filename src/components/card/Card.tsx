@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image';
 
 interface SlangCardProps {
   title: string
@@ -17,9 +18,11 @@ export default function Card({ title, image, description, onClick }: SlangCardPr
     >
       {/* Image */}
       <div className="h-48 overflow-hidden bg-gray-100">
-        <img 
-          src={image} 
+        <Image
+          src={image}
           alt={title}
+          width={400}
+          height={192}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           loading="lazy"
         />
