@@ -16,7 +16,7 @@ export default function Navbar() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`Searching in ${activeTab} for:`, searchQuery);
+    console.log(`Searching for:`, query);
     // Implement search functionality here
     // You can redirect to the appropriate route with the search query
   };
