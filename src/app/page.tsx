@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
@@ -10,7 +10,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // predictive text (hard-coded suggestions for now)
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [, setShowSuggestions] = useState(false);
 
   type Suggestion = { id: string | number; text: string };
 
@@ -25,7 +25,6 @@ export default function Home() {
   // );
 
   const [loading, setLoading] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const clear = () => {
     setSearchQuery("");
@@ -58,7 +57,7 @@ export default function Home() {
     }, 300); // 300ms debounce
 
     return () => clearTimeout(delayDebounce);
-  }, [searchQuery]);
+  }, [searchQuery, apiUrl]);
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
       <header className="bg-white shadow">
@@ -186,7 +185,7 @@ export default function Home() {
               />
             </div>
 
-            {(suggestions.length > 0 || thesaurusSuggestions.length > 0) && (
+            {searchQuery.length > 0 && (suggestions.length > 0 || loading || thesaurusSuggestions.length > 0) && (
               <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
                 <p className="font-extrabold text-[#016701]">Dictionary</p>
                 <ul className="max-h-48 overflow-auto mb-5">
@@ -238,7 +237,8 @@ export default function Home() {
               </div>
               <div className="mt-3 text-gray-700">Fine, good, pleasing</div>
               <div className="mt-2 text-sm text-gray-600">
-                Example: "Mi deh yah, everything irie." — Everything's good.
+                Example: &quot;Mi deh yah, everything irie.&quot; —
+                Everything&apos;s good.
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -287,7 +287,7 @@ export default function Home() {
                       Wah gwaan
                     </div>
                     <div className="text-sm text-gray-600 mt-1">
-                      What's going on? / How are you?
+                      What&apos;s going on? / How are you?
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 items-end">
@@ -396,9 +396,12 @@ export default function Home() {
               <div>
                 <div className="text-sm text-gray-600">Example sentence</div>
                 <div className="mt-3 bg-gray-50 p-3 rounded">
-                  <div className="text-sm">"Mi deh yah, everything irie."</div>
+                  <div className="text-sm">
+                    &quot;Mi deh yah, everything irie.&quot;
+                  </div>
                   <div className="text-xs text-gray-500 mt-2">
-                    Translation: "I'm here, everything's good."
+                    Translation: &quot;I&apos;m here, everything&apos;s
+                    good.&quot;
                   </div>
                 </div>
               </div>

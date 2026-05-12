@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface SlangEntry {
   title: string;
@@ -59,9 +60,11 @@ export default function Slangs() {
           <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             {/* Image */}
             <div className="h-48 overflow-hidden">
-              <img 
-                src={entry.image} 
+              <Image
+                src={entry.image}
                 alt={entry.title}
+                width={400}
+                height={192}
                 className="w-full h-full object-cover"
               />
             </div>

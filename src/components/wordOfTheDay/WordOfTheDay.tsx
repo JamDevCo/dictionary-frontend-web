@@ -3,15 +3,6 @@
 import React from "react";
 import { Volume2, ChevronLeft, ChevronRight } from "lucide-react";
 
-interface WordOfTheDayProps {
-  date?: string;
-  word?: string;
-  pronunciation?: string;
-  partOfSpeech?: string;
-  definition?: string;
-  example?: string;
-}
-
 export default function WordOfTheDay() {
   const date = "July 28, 2025";
   const word = "nyam";

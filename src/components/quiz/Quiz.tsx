@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from 'next/image';
 
 export default function Quiz() {
   const [email, setEmail] = useState("");
@@ -22,9 +23,11 @@ export default function Quiz() {
           <div className="p-6">
             {/* Quiz Image */}
             <div className="mb-6">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=200&fit=crop&crop=center"
                 alt="Jamaican Food"
+                width={400}
+                height={192}
                 className="w-full h-48 object-cover rounded-lg"
               />
             </div>

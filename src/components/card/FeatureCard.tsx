@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 interface CardProps {
   image?: string;
   title: string;
@@ -10,7 +10,6 @@ interface CardProps {
 const FeatureCard: React.FC<CardProps> = ({
   image,
   title,
-  subtitle,
   bgColor,
   textColor = "text-white",
 }) => (
@@ -18,7 +17,7 @@ const FeatureCard: React.FC<CardProps> = ({
     <div className={`${bgColor} rounded-xl overflow-hidden`}>
       <div className="h-64 relative">
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <Image src={image} alt={title} width={400} height={256} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             {title === "True or False Quiz" && (
@@ -54,9 +53,11 @@ const FeatureCard: React.FC<CardProps> = ({
           <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
             <div className="text-center">
               {image && (
-                <img
+                <Image
                   src={image}
                   alt={title}
+                  width={400}
+                  height={256}
                   className="w-full h-full object-cover"
                 />
               )}

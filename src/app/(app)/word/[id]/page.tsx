@@ -22,11 +22,14 @@ export default function Page() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-
-     const getWord = async () => {
+  useEffect(() => {
+    if (!id) return;
+    const getWord = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/getWord/${id}`);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/getWord/${id}`,
+        );
         const data = res.data;
         setWord(data?.word?.word || "nyam");
         setPronunciation(data?.word?.pronunciation || "ni-yam");
@@ -36,7 +39,9 @@ export default function Page() {
         if (data?.word?.audio_url) {
           setAudioUrl(data.word.audio_url);
         } else if (data?.word?.audio_path) {
-          setAudioUrl(`${process.env.NEXT_PUBLIC_API_URL}/${data.word.audio_path}`);
+          setAudioUrl(
+            `${process.env.NEXT_PUBLIC_API_URL}/${data.word.audio_path}`,
+          );
         } else {
           setAudioUrl("");
         }
@@ -46,9 +51,6 @@ export default function Page() {
         setIsLoading(false);
       }
     };
-
-  useEffect(() => {
-    if (!id) return;
     getWord();
   }, [id]);
 
@@ -56,7 +58,9 @@ export default function Page() {
   useEffect(() => {
     if (!audioUrl) {
       if (audioRef.current) {
-        try { audioRef.current.pause(); } catch {}
+        try {
+          audioRef.current.pause();
+        } catch {}
         audioRef.current = null;
       }
       setIsPlaying(false);
@@ -73,7 +77,9 @@ export default function Page() {
   useEffect(() => {
     return () => {
       if (audioRef.current) {
-        try { audioRef.current.pause(); } catch {}
+        try {
+          audioRef.current.pause();
+        } catch {}
         audioRef.current = null;
       }
     };
@@ -121,15 +127,23 @@ export default function Page() {
             <button
               onClick={toggleAudio}
               disabled={!audioUrl || isLoading}
-              aria-label={audioUrl ? `${isPlaying ? "Pause" : "Play"} pronunciation of ${word}` : "No audio available"}
+              aria-label={
+                audioUrl
+                  ? `${isPlaying ? "Pause" : "Play"} pronunciation of ${word}`
+                  : "No audio available"
+              }
               className={`p-2 rounded-full transition-colors ${!audioUrl ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-200"}`}
             >
-              <Volume2 className={`w-6 h-6 ${isPlaying ? "text-green-600" : "text-gray-600"}`} />
+              <Volume2
+                className={`w-6 h-6 ${isPlaying ? "text-green-600" : "text-gray-600"}`}
+              />
             </button>
           </div>
 
           <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-            <span className="bg-gray-200 px-3 py-1 rounded-full">{partOfSpeech}</span>
+            <span className="bg-gray-200 px-3 py-1 rounded-full">
+              {partOfSpeech}
+            </span>
             <span>|</span>
             <span>{pronunciation}</span>
           </div>
@@ -140,8 +154,13 @@ export default function Page() {
 
         {/* definition */}
         <div className="mb-8">
-          <h3 className="text-xl font-medium text-gray-900 mb-4">What It means</h3>
-          <p className="text-gray-700 leading-relaxed mb-4">{definition || (isLoading ? "Loading..." : "No definition available.")}</p>
+          <h3 className="text-xl font-medium text-gray-900 mb-4">
+            What It means
+          </h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            {definition ||
+              (isLoading ? "Loading..." : "No definition available.")}
+          </p>
         </div>
 
         <div className="pt-4">
@@ -155,7 +174,9 @@ export default function Page() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
             {/* Context (left wide) */}
             <div className="lg:col-span-2">
-              <h2 className="text-2xl font-medium text-gray-900 mb-6">{word.toUpperCase()} in Context</h2>
+              <h2 className="text-2xl font-medium text-gray-900 mb-6">
+                {word.toUpperCase()} in Context
+              </h2>
               <p className="text-gray-700 leading-relaxed">
                 {example ||
                   "Lorem ipsum dolor sit amet consectetur. A non ut blandit sit eget sodales malesuada laoreet. Tincidunt duis eget id integer eu arcu. Congue bibendum at eget bibendum. Consectetur nisl blandit mattis auctor scelerisque a ornare morbi. Rhoncus pulvinar justo elit faucibus. Aliquet lectus sit turpis pharetra sagittis. Quis mi euismod urna pellentesque placerat tempus. Sed et morbi vulputate elementum. Pellentesque malesuada sit massa arcu pretium. Eget quis malesuada cras a id cursus tristique viverra. Eros suspendisse et viverra purus enim ornare nisi nulla congue."}
@@ -165,7 +186,9 @@ export default function Page() {
             {/* Newsletter card (right) */}
             <aside className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
               <div className="text-center mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Build your vocabulary!</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Build your vocabulary!
+                </h3>
                 <p className="text-gray-700 mb-1">Get Word of the Day</p>
                 <p className="text-gray-700">in your inbox everyday.</p>
               </div>
@@ -174,12 +197,17 @@ export default function Page() {
                 <div className="w-24 h-px bg-gray-300"></div>
               </div>
 
-              <form onSubmit={(e)=>{ e.preventDefault(); /* UI-only */ }} className="space-y-4">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault(); /* UI-only */
+                }}
+                className="space-y-4"
+              >
                 <input
                   type="email"
                   placeholder="Your email address"
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder-gray-400"
                 />
                 <button
