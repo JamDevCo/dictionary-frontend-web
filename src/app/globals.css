@@ -1,4 +1,31 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Open+Sans:wght@400;600;700&family=Oleo+Script&family=Oranienbaum&family=Original+Surfer&family=Otomanopee+One&display=swap');
+
+ /* ── Fonts ── */
+@theme {
+  /*  Font Families */
+  --font-inter: "Inter", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
+  --font-oleo: "Oleo Script", cursive;
+  --font-oranienbaum: "Oranienbaum", serif;
+  --font-original-surfer: "Original Surfer", cursive;
+  --font-otomanopee: "Otomanopee One", sans-serif;
+
+  /*   Colors */
+  --color-white: #FFFFFF;
+  --color-light-grey: #D9D9D9;
+  --color-mid-grey: #54636D;
+  --color-dark-grey: #2C2C2C;
+  --color-black: #000000;
+
+  --color-primary: #14AE5C;
+  --color-dark-green: #016701;
+  --color-amber: #E4C04B;
+  --color-blue: #0074CC;
+  --color-red: #AE0015;
+
+}
+
 
 :root {
   --background: #ffffff;
