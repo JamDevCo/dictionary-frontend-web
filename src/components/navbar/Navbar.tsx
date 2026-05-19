@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -79,7 +79,11 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href="/">
                   <Image
+<<<<<<< HEAD
                     src="/dictionary.svg"
+=======
+                    src="/logo_dic.jpg"
+>>>>>>> 127c168 (Create reusable navbar component #25)
                     alt="Logo"
                     width={70}
                     height={70}
