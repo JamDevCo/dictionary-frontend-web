@@ -60,7 +60,7 @@ export default function Home() {
   }, [searchQuery, apiUrl]);
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
-      <header className="bg-white shadow">
+      {/*<header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </header>
+      </header> */}
 
       <section className="relative bg-[url('/flag.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/45" />
