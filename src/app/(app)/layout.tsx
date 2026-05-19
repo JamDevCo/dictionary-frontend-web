@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/navbar/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,10 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <Navbar />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
