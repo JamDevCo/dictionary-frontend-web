@@ -6,7 +6,6 @@ import axios from "axios";
 
 export default function Home() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   // predictive text (hard-coded suggestions for now)
