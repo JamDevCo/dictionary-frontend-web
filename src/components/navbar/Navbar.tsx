@@ -79,11 +79,7 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href="/">
                   <Image
-<<<<<<< HEAD
                     src="/dictionary.svg"
-=======
-                    src="/logo_dic.jpg"
->>>>>>> 127c168 (Create reusable navbar component #25)
                     alt="Logo"
                     width={70}
                     height={70}
