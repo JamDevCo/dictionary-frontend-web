@@ -41,7 +41,7 @@ export default function Navbar() {
               {/* Logo */}
               <Link href="/">
                 <Image
-                  src="/logo_dic.jpg"
+                  src="/dictionary.svg"
                   alt="Logo"
                   width={90}
                   height={90}
@@ -79,7 +79,7 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href="/">
                   <Image
-                    src="/logo_dic.jpg"
+                    src="/dictionary.svg"
                     alt="Logo"
                     width={70}
                     height={70}
