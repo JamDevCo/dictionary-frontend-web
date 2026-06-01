@@ -13,14 +13,12 @@ const FeatureCard: React.FC<CardProps> = ({
   image,
   title,
   bgColor,
-  textColor = "text-black",
   className = "",
+
 }) => (
-  <div
-    className={`bg-white rounded-lg p-1 shadow-md transform hover:scale-105 transition-transform duration-300 ${className}`}
-  >
-    <div className={`${bgColor} rounded-md overflow-hidden relative`}>
-      <div className="h-44 relative">
+  <div className={`bg-white rounded-2xl p-1 shadow-xl transform hover:scale-105 transition-transform duration-300 ${className}`}>
+    <div className={`${bgColor} rounded-xl overflow-hidden`}>
+      <div className="h-64 relative">
         {image ? (
           <Image
             src={image}
