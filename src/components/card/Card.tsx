@@ -8,12 +8,13 @@ interface SlangCardProps {
   image: string
   description: string
   onClick?: () => void
+  className?: string
 }
 
-export default function Card({ title, image, description, onClick }: SlangCardProps) {
+export default function Card({ title, image, description, onClick, className = "" }: SlangCardProps) {
   return (
     <div 
-      className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer"
+      className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer ${className}`}
       onClick={onClick}
     >
       {/* Image */}

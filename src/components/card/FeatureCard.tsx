@@ -5,6 +5,7 @@ interface CardProps {
   subtitle: string;
   bgColor: string;
   textColor?: string;
+  className?: string;
 }
 
 const FeatureCard: React.FC<CardProps> = ({
@@ -12,8 +13,10 @@ const FeatureCard: React.FC<CardProps> = ({
   title,
   bgColor,
   textColor = "text-white",
+  className = "",
+
 }) => (
-  <div className="bg-white rounded-2xl p-1 shadow-xl transform hover:scale-105 transition-transform duration-300">
+  <div className={`bg-white rounded-2xl p-1 shadow-xl transform hover:scale-105 transition-transform duration-300 ${className}`}>
     <div className={`${bgColor} rounded-xl overflow-hidden`}>
       <div className="h-64 relative">
         {image ? (

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Card from "../card/Card";
 
 interface SlangEntry {
   title: string;
@@ -54,33 +55,16 @@ export default function Slangs() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-50 p-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {slangEntries.map((entry, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            {/* Image */}
-            <div className="h-48 overflow-hidden">
-              <Image
-                src={entry.image}
-                alt={entry.title}
-                width={400}
-                height={192}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Content */}
-            <div className="p-4">
-              <h3 className="font-bold text-gray-900 mb-2 text-sm">
-                {entry.title}
-              </h3>
-              <p className="text-gray-600 text-xs leading-relaxed">
-                {entry.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+  <div className="max-w-6xl mx-auto bg-gray-50 p-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {slangEntries.map((entry, index) => (
+        <Card
+          key={index}
+          title={entry.title}
+          image={entry.image}
+          description={entry.description}
+        />
+      ))}
     </div>
-  );
-}
+  </div>
+);}

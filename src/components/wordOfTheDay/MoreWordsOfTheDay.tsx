@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import TextCard from "../card/TextCard";
 
 interface WordEntry {
   date: string;
@@ -18,7 +19,7 @@ export default function MoreWordsOfTheDay() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto  p-8">
+    <TextCard className="max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-2xl font-medium text-gray-900 mb-8">
           More Words of the Day
@@ -46,6 +47,6 @@ export default function MoreWordsOfTheDay() {
 
       {/* Bottom decorative line */}
       <div className="w-full h-px bg-green-300"></div>
-    </div>
+    </TextCard>
   );
 }

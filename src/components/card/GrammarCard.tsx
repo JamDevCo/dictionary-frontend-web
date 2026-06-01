@@ -9,7 +9,7 @@ interface GrammarCardProps {
 export default function GrammarCard({ title, image, onClick }: GrammarCardProps) {
   return (
     <div 
-      className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer"
+      className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer"
       onClick={onClick}
     >
       {/* Image */}
