@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import TextCard from "../card/TextCard";
 
 export default function DidYouKnow() {
   return (
-    <div className="max-w-6xl mx-auto  p-8">
+    <TextCard className="max-w-6xl mx-auto">
       {/* Top decorative line */}
       <div className="w-full h-px bg-green-300 mb-8"></div>
 
@@ -23,6 +24,6 @@ export default function DidYouKnow() {
           turpis amet iaculis.
         </p>
       </div>
-    </div>
+    </TextCard>
   );
 }

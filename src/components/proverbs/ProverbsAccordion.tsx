@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import Card from "../../components/Card";
 
 interface Proverb {
   id: number;

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Volume2, ChevronLeft, ChevronRight } from "lucide-react";
+import TextCard from "../card/TextCard";
 
 export default function WordOfTheDay() {
   const date = "July 28, 2025";
@@ -18,7 +19,7 @@ export default function WordOfTheDay() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8 ">
+    <TextCard className="max-w-6xl mx-auto">
       {/* Header with navigation */}
       <div className="flex items-center justify-between mb-8">
         <button className="p-2 rounded-full hover:bg-gray-200 transition-colors">
@@ -79,6 +80,6 @@ export default function WordOfTheDay() {
           See the entry &gt;
         </button>
       </div>
-    </div>
+    </TextCard>
   );
 }
