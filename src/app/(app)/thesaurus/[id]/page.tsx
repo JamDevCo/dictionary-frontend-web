@@ -4,6 +4,8 @@ import { Word, Meaning, ThesaurusItem } from "@/types";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import Sidebar from "@/components/sidebar/sidebar";
+
 
 export default function Page() {
   const params = useParams();
@@ -17,7 +19,7 @@ export default function Page() {
     part_of_speech: "",
   });
   const [thesaurusList, setThesaurusList] = useState<ThesaurusItem[]>([]);
-
+  
   useEffect(() => {
     const getThesarusinformation = async () => {
       setLoading(true);
@@ -31,31 +33,24 @@ export default function Page() {
     };
     getThesarusinformation();
   }, [id]);
-
+  
   return (
     <main className="min-h-screen  bg-gray-50 py-6">
       {loading == false && (
         <div className=" px-4">
           <div className="grid grid-cols-12 gap-6">
             {/* Left sidebar */}
-            <aside className="col-span-12 md:col-span-2 bg-green-700 text-white rounded-md p-5">
-              <h2 className="text-xl font-bold">Thesaurus</h2>
-              <p className="text-sm opacity-90">Synonyms of {word.word}</p>
+            <Sidebar
+              title="Thesaurus"
+              subtitle={`Synonyms of ${word.word}`}
+              sectionLabel={
+                meaning.part_of_speech ? meaning.part_of_speech.toUpperCase() : ""
+              }
+              items={thesaurusList.map((s) => ({
+                label: s.synonym.word,
+            }))}
+            />
 
-              <div className="mt-4 text-sm p-3 rounded">
-                <div className="font-semibold">
-                  {meaning.part_of_speech
-                    ? meaning.part_of_speech.toUpperCase()
-                    : ""}
-                </div>
-
-                {thesaurusList.map((s, idx) => (
-                  <div key={idx} className="mt-2 text-xs opacity-90">
-                    {s.synonym.word}
-                  </div>
-                ))}
-              </div>
-            </aside>
 
             {/* Main content */}
             <section className="col-span-12 md:col-span-8 bg-white rounded-md p-6 shadow-sm">
