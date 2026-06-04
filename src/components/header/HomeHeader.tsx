@@ -225,7 +225,7 @@ const HomeHeader: React.FC = () => {
           title="Slangs"
           subtitle="Explore Jamaican Slangs"
           bgColor="bg-gray-900"
-          image="slang.jpg"
+          image="/slang.jpg"
         />
         <FeatureCard
           title="True or False Quiz"
