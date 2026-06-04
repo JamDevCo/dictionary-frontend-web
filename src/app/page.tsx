@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import FeatureCard from "@/components/card/FeatureCard";
 
 export default function Home() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -222,6 +223,30 @@ export default function Home() {
           </form>
         </div>
       </section>
+      <section className="max-w-7xl mx-auto px-8 -mt-12 relative z-20">
+      
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <FeatureCard
+      title="Slangs"
+      subtitle="Explore Jamaican Slangs"
+      bgColor="bg-gray-900"
+      image="/slang.jpg"
+    />
+
+    <FeatureCard
+      title="True or False Quiz"
+      subtitle="Test your knowledge"
+      bgColor="bg-sky-500"
+    />
+
+    <FeatureCard
+      title="Guess the meaning"
+      subtitle="Challenge yourself"
+      bgColor="bg-gray-300"
+      textColor="text-white"
+    />
+  </div>
+</section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-6 ring-1 ring-black/5">
