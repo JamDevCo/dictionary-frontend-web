@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import Card from "../../components/Card";
+// import Card from "../../components/card/Card";
 
 interface Proverb {
   id: number;
