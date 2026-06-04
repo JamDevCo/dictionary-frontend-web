@@ -61,96 +61,96 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
       {/*<header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo_dic.jpg"
-                alt="Logo"
-                width={44}
-                height={44}
-                className="rounded-full object-cover"
-              />
-              <div>
-                <Link href="/" className="text-lg font-bold text-[#053a12]">
-                  Jamaican Patwa Dictionary
-                </Link>
-                <div className="text-xs text-gray-500">
-                  Preserve & celebrate
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-4">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/logo_dic.jpg"
+                  alt="Logo"
+                  width={44}
+                  height={44}
+                  className="rounded-full object-cover"
+                />
+                <div>
+                  <Link href="/" className="text-lg font-bold text-[#053a12]">
+                    Jamaican Patwa Dictionary
+                  </Link>
+                  <div className="text-xs text-gray-500">
+                    Preserve & celebrate
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <nav className="hidden sm:flex gap-6 items-center text-sm">
-              <Link
-                href="/word-of-the-day"
-                className="text-gray-700 hover:text-[#016701]"
-              >
-                Word of the Day
-              </Link>
-              <Link
-                href="/thesaurus"
-                className="text-gray-700 hover:text-[#016701]"
-              >
-                Thesaurus
-              </Link>
-              <Link
-                href="/slang"
-                className="text-gray-700 hover:text-[#016701]"
-              >
-                Slang
-              </Link>
-              <Link
-                href="/about"
-                className="px-3 py-2 bg-[#016701] text-white rounded-full text-sm"
-              >
-                About
-              </Link>
-            </nav>
-
-            <div className="sm:hidden">
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="p-2 rounded-md bg-gray-100"
-                aria-label="Toggle menu"
-              >
-                {mobileOpen ? "Close" : "Menu"}
-              </button>
-            </div>
-          </div>
-
-          {mobileOpen && (
-            <div className="sm:hidden pb-4">
-              <div className="flex flex-col gap-2 text-sm">
+              <nav className="hidden sm:flex gap-6 items-center text-sm">
                 <Link
                   href="/word-of-the-day"
-                  className="block px-2 py-2 rounded hover:bg-gray-50"
+                  className="text-gray-700 hover:text-[#016701]"
                 >
                   Word of the Day
                 </Link>
                 <Link
                   href="/thesaurus"
-                  className="block px-2 py-2 rounded hover:bg-gray-50"
+                  className="text-gray-700 hover:text-[#016701]"
                 >
                   Thesaurus
                 </Link>
                 <Link
                   href="/slang"
-                  className="block px-2 py-2 rounded hover:bg-gray-50"
+                  className="text-gray-700 hover:text-[#016701]"
                 >
                   Slang
                 </Link>
                 <Link
                   href="/about"
-                  className="block px-2 py-2 rounded hover:bg-gray-50"
+                  className="px-3 py-2 bg-[#016701] text-white rounded-full text-sm"
                 >
                   About
                 </Link>
+              </nav>
+
+              <div className="sm:hidden">
+                <button
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  className="p-2 rounded-md bg-gray-100"
+                  aria-label="Toggle menu"
+                >
+                  {mobileOpen ? "Close" : "Menu"}
+                </button>
               </div>
             </div>
-          )}
-        </div>
-      </header> */}
+
+            {mobileOpen && (
+              <div className="sm:hidden pb-4">
+                <div className="flex flex-col gap-2 text-sm">
+                  <Link
+                    href="/word-of-the-day"
+                    className="block px-2 py-2 rounded hover:bg-gray-50"
+                  >
+                    Word of the Day
+                  </Link>
+                  <Link
+                    href="/thesaurus"
+                    className="block px-2 py-2 rounded hover:bg-gray-50"
+                  >
+                    Thesaurus
+                  </Link>
+                  <Link
+                    href="/slang"
+                    className="block px-2 py-2 rounded hover:bg-gray-50"
+                  >
+                    Slang
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block px-2 py-2 rounded hover:bg-gray-50"
+                  >
+                    About
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </header> */}
 
       <section className="relative bg-[url('/flag.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/45" />
@@ -166,17 +166,20 @@ export default function Home() {
           <form
             action="/search"
             method="get"
-            className="mt-8 max-w-3xl mx-auto w-full"
+            className="relative mt-8 max-w-3xl mx-auto w-full" //--position relative for form which is inside the div
             onSubmit={() => setShowSuggestions(false)}
           >
-            <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow">
+            <div className="flex items-center bg-white rounded-full overflow-hidden shadow">
               <input
                 name="q"
-                onChange={(e) =>
-                  e.target.value.length == 0
-                    ? () => clear()
-                    : setSearchQuery(e.target.value)
-                }
+                onChange={(e) => {
+                  if (e.target.value.length === 0) {
+                    //--returns a function reference, never calls clear()
+                    clear();
+                  } else {
+                    setSearchQuery(e.target.value);
+                  }
+                }}
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 className="flex-1 px-5 py-3 text-gray-800 outline-none rounded-l-full"
@@ -185,68 +188,68 @@ export default function Home() {
               />
             </div>
 
-            {searchQuery.length > 0 && (suggestions.length > 0 || loading || thesaurusSuggestions.length > 0) && (
-              <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
-                <p className="font-extrabold text-[#016701]">Dictionary</p>
-                <ul className="max-h-48 overflow-auto mb-5">
-                  {suggestions.map((s) => (
-                    <a key={s.id} href={`/word/${s.id}`}>
-                      <li className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer">
-                        {s.text}
-                      </li>
-                    </a>
-                  ))}
-                </ul>
-
-                <p className=" font-extrabold text-[#016701]">Thesaurus</p>
-                <ul className="max-h-48 overflow-auto">
-                  {thesaurusSuggestions.map((s) => (
-                    <a key={s.id} href={`/thesaurus/${s.id}`}>
-                      <li className="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer">
-                        {s.text}
-                      </li>
-                    </a>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {suggestions.length == 0 &&
-              thesaurusSuggestions.length == 0 &&
-              searchQuery.length != 0 && (
+            {searchQuery.length > 0 &&
+              (suggestions.length > 0 ||
+                loading ||
+                thesaurusSuggestions.length > 0) && (
                 <div className="absolute p-5 text-left left-0 right-0 bg-white border rounded-md shadow-lg z-50">
-                  <p className=" font-extrabold text-[#016701]">
-                    No results found
-                  </p>
+                  <p className="font-extrabold text-[#016701]">Dictionary</p>
+                  <ul className="max-h-48 overflow-auto mb-5">
+                    {suggestions.map((s) => (
+                      <a
+                        key={s.id}
+                        href={`/word/${s.id}`}
+                        onMouseDown={(e) => e.preventDefault()}
+                      >
+                        <li className="px-4 py-2 text-sm hover:bg-yellow-50 cursor-pointer">
+                          {s.text}
+                        </li>
+                      </a>
+                    ))}
+                  </ul>
+
+                  <p className=" font-extrabold text-[#016701]">Thesaurus</p>
+                  <ul className="max-h-48 overflow-auto">
+                    {thesaurusSuggestions.map((s) => (
+                      <a
+                        key={s.id}
+                        href={`/thesaurus/${s.id}`}
+                        onMouseDown={(e) => e.preventDefault()}
+                      >
+                        <li className="px-4 py-2 text-sm hover:bg-yellow-50 cursor-pointer">
+                          {s.text}
+                        </li>
+                      </a>
+                    ))}
+                  </ul>
                 </div>
               )}
           </form>
         </div>
       </section>
       <section className="max-w-7xl mx-auto px-8 -mt-12 relative z-20">
-      
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-    <FeatureCard
-      title="Slangs"
-      subtitle="Explore Jamaican Slangs"
-      bgColor="bg-gray-900"
-      image="/slang.jpg"
-    />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <FeatureCard
+            title="Slangs"
+            subtitle="Explore Jamaican Slangs"
+            bgColor="bg-gray-900"
+            image="/slang.jpg"
+          />
 
-    <FeatureCard
-      title="True or False Quiz"
-      subtitle="Test your knowledge"
-      bgColor="bg-sky-500"
-    />
+          <FeatureCard
+            title="True or False Quiz"
+            subtitle="Test your knowledge"
+            bgColor="bg-sky-500"
+          />
 
-    <FeatureCard
-      title="Guess the meaning"
-      subtitle="Challenge yourself"
-      bgColor="bg-gray-300"
-      textColor="text-white"
-    />
-  </div>
-</section>
+          <FeatureCard
+            title="Guess the meaning"
+            subtitle="Challenge yourself"
+            bgColor="bg-gray-300"
+            textColor="text-white"
+          />
+        </div>
+      </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-6 ring-1 ring-black/5">
@@ -286,8 +289,8 @@ export default function Home() {
 
             <div className="w-full sm:w-48">
               {/* <audio controls className="w-full rounded-md">
-                <source src="/audio/irie.mp3" type="audio/mpeg" />
-              </audio> */}
+                  <source src="/audio/irie.mp3" type="audio/mpeg" />
+                </audio> */}
             </div>
           </div>
         </div>
@@ -411,9 +414,9 @@ export default function Home() {
                     <div className="text-xs text-gray-500">/ˈiːri/</div>
                   </div>
                   {/* <audio controls className="w-48">
-                    <source src="/audio/sample.mp3" type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio> */}
+                      <source src="/audio/sample.mp3" type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio> */}
                 </div>
               </div>
 
@@ -584,3 +587,5 @@ export default function Home() {
     </main>
   );
 }
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+console.log("API URL:", apiUrl);

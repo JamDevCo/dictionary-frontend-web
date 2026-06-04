@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
+import { useRouter } from "next/navigation";
+
+
 const HomeHeader: React.FC = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,6 +19,8 @@ const HomeHeader: React.FC = () => {
   const [suggestions, setSuggestions] = useState<{ text: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+   const router = useRouter()
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -49,7 +54,8 @@ const HomeHeader: React.FC = () => {
           type: activeTab,
         })
         .then((res) => {
-          setSuggestions(res.data);
+          //setSuggestions(res.data);
+          setSuggestions(res.data.words || []); // match the actual API response
           setLoading(false);
         })
         .catch((err) => {
@@ -193,31 +199,43 @@ const HomeHeader: React.FC = () => {
                 className="px-4  py-3 sm:px-6 sm:py-4 w-full outline-none text-gray-800 text-sm sm:text-base"
                 aria-label={`Search ${activeTab}`}
               />
+              
+              {/* Dropdown goes here, inside the relative div */}
+    {suggestions.length > 0 && (
+      <ul className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg z-50">
+        {suggestions.map((word, i) => (
+          <li
+            key={i}
+            onClick={() => {
+            router.push(`/word/${encodeURIComponent(word.text)}`);
+            setSuggestions([]);
+          }}
+            className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
+          >
+            {word.text}
+          </li>
+        ))}
+      </ul>
+    )}
+
             </div>
 
-            <button className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors">
+            
+            <button 
+              onClick={() => {
+                if (searchQuery.trim()) {
+                  router.push(`/word/${encodeURIComponent(searchQuery.trim())}`);
+                }
+              }}
+              className="bg-[#B88600] hover:bg-amber-700 px-4 py-3 sm:px-6 sm:py-4 transition-colors"
+            >
               <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
+          </button>  
           </div>
+
         </div>
       </div>
-      {suggestions.length > 0 || !loading && (
-        <ul className="absolute flex flex-col m-auto left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-lg h-auto z-50 w-1/2 mt-0 ">
-          {suggestions.map((word, i) => (
-            <li
-              key={i}
-              onClick={() => {
-                setSearchQuery(word.text);
-                setSuggestions([]);
-              }}
-              className="px-4 py-2 cursor-pointer hover:bg-yellow-100 text-black"
-            >
-              {word.text}
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* Suggestions Dropdown */}
+     
 
       {/* Feature Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8 mt-20 pb-12 max-w-7xl mx-auto">
