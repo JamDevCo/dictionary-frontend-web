@@ -22,12 +22,7 @@ const FeatureCard: React.FC<CardProps> = ({
     <div className={`${bgColor} rounded-md overflow-hidden relative`}>
       <div className="h-44 relative">
         {image ? (
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-          />
+          <Image src={image} alt={title} fill className="object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             {title === "True or False Quiz" && (
@@ -61,22 +56,21 @@ const FeatureCard: React.FC<CardProps> = ({
           </div>
         )}
       </div>
-    
-        <div className="absolute bottom-2 left-2 right-2">
+
+      <div className="absolute bottom-2 left-2 right-2">
         <div
           className={`${
             title === "Slangs"
               ? "bg-yellow-300"
               : title === "True or False Quiz"
               ? "bg-cyan-500"
-              :  "bg-[#A98B5A]"
-            } rounded-md px-2 py-1 border-3 border-white/60`}
+              : "bg-[#A98B5A]"
+          } rounded-md px-2 py-1 border-3 border-white/60`}
         >
-          <h3 className={`text-center text-xs font-bold text-black`}>
+          <h3 className={`text-center text-xs font-bold ${textColor}`}>
             {title}
           </h3>
         </div>
-
       </div>
     </div>
   </div>
