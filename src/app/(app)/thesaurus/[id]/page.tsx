@@ -41,21 +41,27 @@ export default function Page() {
           <div className="grid grid-cols-12 gap-6">
             {/* Left sidebar */}
             <Sidebar
-              title="Thesaurus"
-              subtitle={`Synonyms of ${word.word}`}
-              sectionLabel={
-                meaning.part_of_speech ? meaning.part_of_speech.toUpperCase() : ""
-              }
-              items={thesaurusList.map((s) => ({
-                label: s.synonym.word,
-            }))}
-            />
+  title="Thesaurus"
+  subtitle={`Synonyms of ${word.word}`}
+  sectionLabel={word.part_of_speech ? word.part_of_speech.toUpperCase() : ""}
+  items={[
+    ...(meaning.definition
+      ? [{ label: `Meaning: ${meaning.definition}` }]
+      : []),
+    ...(meaning.example
+      ? [{ label: `Example: ${meaning.example}` }]
+      : []),
+    ...thesaurusList.map((s) => ({
+      label: s.synonym.word,
+    })),
+  ]}
+/>
 
+            {/* Main content */} 
+            <section className="col-span-12 md:col-span-8 bg-white rounded-md p-6 shadow-sm"> 
+            <header className="flex items-start justify-between"> 
+            <div>
 
-            {/* Main content */}
-            <section className="col-span-12 md:col-span-8 bg-white rounded-md p-6 shadow-sm">
-              <header className="flex items-start justify-between">
-                <div>
                   <div className="flex items-baseline gap-3">
                     <h1 className="text-3xl font-extralight">{word.word}</h1>
                     <span className="text-sm text-gray-600">
