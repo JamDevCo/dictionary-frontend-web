@@ -3,6 +3,9 @@ export type Word = {
   word: string;
   pronounciation: string;
   pronunciation?: string;
+  language?: string;
+  part_of_speech?: string;
+  slug?: string;
 };
 
 export type Meaning = {
