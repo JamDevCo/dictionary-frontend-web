@@ -22,14 +22,14 @@ export default function Page() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {  //FALLBACK: if no id param, just show "nyam" entry. If this occurs then api did not return expected data.
     if (!id) return;
     const getWord = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/getWord/${id}`,
-        );
+  `${process.env.NEXT_PUBLIC_API_URL}/api/words/${id}`,
+);
         const data = res.data;
         setWord(data?.word?.word || "nyam");
         setPronunciation(data?.word?.pronunciation || "ni-yam");
