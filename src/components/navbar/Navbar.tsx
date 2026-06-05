@@ -59,7 +59,7 @@ export default function Navbar() {
                   Rhymes
                 </Link>
 
-                <Link href="/thesaurus">
+                <Link href="/thesaurus/1">
                   Thesaurus
                 </Link>
               </div>
@@ -167,7 +167,7 @@ export default function Navbar() {
                   Rhymes
                 </Link>
 
-                <Link href="/thesaurus">
+                <Link href="/thesaurus/1">
                   Thesaurus
                 </Link>
 
