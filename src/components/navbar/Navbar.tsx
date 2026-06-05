@@ -1,12 +1,7 @@
 "use client";
 
-<<<<<<< HEAD
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-=======
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
->>>>>>> 66b635c (Added dropdown feature to show word suggestion)
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -15,7 +10,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchType, setSearchType] = useState("dictionary");
-  const [suggestions, setSuggestions] = useState<{ id: string | number; text: string }[]>([]);
+  const [suggestions, setSuggestions] = useState<
+    { id: string | number; text: string }[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +49,10 @@ export default function Navbar() {
   // Hide dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setSuggestions([]);
       }
     }
@@ -82,20 +82,20 @@ export default function Navbar() {
                 <Link href="/proverbs">Proverbs</Link>
               </div>
               <Link href="/">
-                <Image src="/dictionary.svg" alt="Logo" width={90} height={90} className="rounded-full object-cover" />
+                <Image
+                  src="/dictionary.svg"
+                  alt="Logo"
+                  width={90}
+                  height={90}
+                  className="rounded-full object-cover"
+                />
               </Link>
               <div className="flex items-center gap-10 font-bold text-lg">
-                <Link href="/slang">
-                  Slang
-                </Link>
+                <Link href="/slang">Slang</Link>
 
-                <Link href="/rhymes">
-                  Rhymes
-                </Link>
+                <Link href="/rhymes">Rhymes</Link>
 
-                <Link href="/thesaurus/1">
-                  Thesaurus
-                </Link>
+                <Link href="/thesaurus/1">Thesaurus</Link>
               </div>
             </div>
           </div>
@@ -105,14 +105,22 @@ export default function Navbar() {
         <header className="bg-[#016701] text-white border-b">
           <div className="w-full px-4">
             <div className="flex items-center justify-between h-20">
-
               <div className="flex items-center gap-5">
                 <Link href="/">
-                  <Image src="/dictionary.svg" alt="Logo" width={70} height={70} className="rounded-full object-cover" />
+                  <Image
+                    src="/dictionary.svg"
+                    alt="Logo"
+                    width={70}
+                    height={70}
+                    className="rounded-full object-cover"
+                  />
                 </Link>
 
                 {/* Search section with autocomplete */}
-                <div className="hidden md:flex items-center border-[3px] border-[#0b3550] rounded-lg bg-white shadow-md relative" ref={wrapperRef}>
+                <div
+                  className="hidden md:flex items-center border-[3px] border-[#0b3550] rounded-lg bg-white shadow-md relative"
+                  ref={wrapperRef}
+                >
                   <button
                     onClick={() => setSearchType("dictionary")}
                     className={`px-6 py-3 font-bold transition-colors ${searchType === "dictionary" ? "bg-yellow-600 text-white" : "bg-[#0b3550] text-white"}`}
@@ -132,7 +140,11 @@ export default function Navbar() {
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                      placeholder={searchType === "dictionary" ? "Search Dictionary" : "Search Thesaurus"}
+                      placeholder={
+                        searchType === "dictionary"
+                          ? "Search Dictionary"
+                          : "Search Thesaurus"
+                      }
                       className="px-4 py-3 w-80 text-black outline-none"
                     />
 
@@ -143,7 +155,9 @@ export default function Navbar() {
                           <li
                             key={i}
                             onClick={() => {
-                              router.push(`/word/${encodeURIComponent(word.text)}`);
+                              router.push(
+                                `/word/${encodeURIComponent(word.text)}`,
+                              );
                               setSuggestions([]);
                               setQuery(word.text);
                             }}
@@ -156,53 +170,71 @@ export default function Navbar() {
                     )}
                   </div>
 
-                  <button onClick={handleSearch} className="bg-yellow-600 px-5 py-3 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6 text-white">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 5.5 5.5a7.5 7.5 0 0 0 11.15 11.15Z" />
+                  <button
+                    onClick={handleSearch}
+                    className="bg-yellow-600 px-5 py-3 flex items-center justify-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 text-white"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 5.5 5.5a7.5 7.5 0 0 0 11.15 11.15Z"
+                      />
                     </svg>
                   </button>
                 </div>
               </div>
 
               <div className="hidden lg:flex items-center gap-8 font-bold">
-                <Link href="/games">
-                  Games
-                </Link>
+                <Link href="/games">Games</Link>
 
-                <Link href="/word-of-the-day">
-                  Word of the Day
-                </Link>
+                <Link href="/word-of-the-day">Word of the Day</Link>
 
-                <Link href="/proverbs">
-                  Proverbs
-                </Link>
+                <Link href="/proverbs">Proverbs</Link>
 
-                <Link href="/slang">
-                  Slang
-                </Link>
+                <Link href="/slang">Slang</Link>
 
-                <Link href="/rhymes">
-                  Rhymes
-                </Link>
+                <Link href="/rhymes">Rhymes</Link>
 
-                <Link href="/thesaurus/1">
-                  Thesaurus
-                </Link>
-
+                <Link href="/thesaurus/1">Thesaurus</Link>
               </div>
 
-              <button onClick={() => setMobileOpen((s) => !s)} className="lg:hidden text-3xl">☰</button>
+              <button
+                onClick={() => setMobileOpen((s) => !s)}
+                className="lg:hidden text-3xl"
+              >
+                ☰
+              </button>
             </div>
           </div>
 
           {mobileOpen && (
             <div className="lg:hidden bg-white text-black p-4 space-y-3">
-              <Link href="/games" className="block">Games</Link>
-              <Link href="/word-of-the-day" className="block">Word of the Day</Link>
-              <Link href="/proverbs" className="block">Proverbs</Link>
-              <Link href="/slang" className="block">Slang</Link>
-              <Link href="/rhymes" className="block">Rhymes</Link>
-              <Link href="/thesaurus" className="block">Thesaurus</Link>
+              <Link href="/games" className="block">
+                Games
+              </Link>
+              <Link href="/word-of-the-day" className="block">
+                Word of the Day
+              </Link>
+              <Link href="/proverbs" className="block">
+                Proverbs
+              </Link>
+              <Link href="/slang" className="block">
+                Slang
+              </Link>
+              <Link href="/rhymes" className="block">
+                Rhymes
+              </Link>
+              <Link href="/thesaurus" className="block">
+                Thesaurus
+              </Link>
             </div>
           )}
         </header>
