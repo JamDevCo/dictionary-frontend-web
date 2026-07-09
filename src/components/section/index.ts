@@ -2,6 +2,7 @@ export { default as Section } from "./Section";
 export { default as SectionHeading } from "./SectionHeading";
 export { default as SectionDivider } from "./SectionDivider";
 export { default as SectionColumns } from "./SectionColumns";
+export { default as SectionBanner } from "./SectionBanner";
 
 export type {
   SectionWidth,

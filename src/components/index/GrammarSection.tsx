@@ -2,7 +2,7 @@
 
 import GrammarCard from "@/components/card/GrammarCard";
 import React from "react";
-import { Section, SectionColumns } from "@/components/section";
+import { SectionBanner, SectionColumns } from "@/components/section";
 
 interface GrammarEntry {
   title: string;
@@ -38,42 +38,19 @@ export default function GrammarUsage() {
   };
 
   return (
-    <Section as="div">
-      <div className="p-6">
-        <div className="bg-green-50 p-6 rounded-lg flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Grammar & Usage</h2>
-          <button
-            className="text-green-600 hover:text-green-700 font-medium flex items-center gap-1"
-            onClick={() => console.log("See all clicked")}
-          >
-            See All
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <SectionBanner title="Grammar & Usage" seeAllHref="#" className="mb-6" />
 
-        <SectionColumns columns={4} gap="sm">
-          {grammarEntries.map((entry, index) => (
-            <GrammarCard
-              key={index}
-              title={entry.title}
-              image={entry.image}
-              onClick={() => handleCardClick(entry)}
-            />
-          ))}
-        </SectionColumns>
-      </div>
-    </Section>
+      <SectionColumns columns={4} gap="sm">
+        {grammarEntries.map((entry, index) => (
+          <GrammarCard
+            key={index}
+            title={entry.title}
+            image={entry.image}
+            onClick={() => handleCardClick(entry)}
+          />
+        ))}
+      </SectionColumns>
+    </section>
   );
 }

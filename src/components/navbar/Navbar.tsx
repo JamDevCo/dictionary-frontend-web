@@ -71,36 +71,7 @@ export default function Navbar() {
 
   return (
     <>
-      {isHomePage ? (
-        /* HOME PAGE NAVBAR  */
-        <header className="bg-[#016701] text-white border-b">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="flex items-center justify-between h-32">
-              <div className="flex items-center gap-10 font-bold text-lg">
-                <Link href="/games">Games</Link>
-                <Link href="/word-of-the-day">Word of the Day</Link>
-                <Link href="/proverbs">Proverbs</Link>
-              </div>
-              <Link href="/">
-                <Image
-                  src="/dictionary.svg"
-                  alt="Logo"
-                  width={90}
-                  height={90}
-                  className="rounded-full object-cover"
-                />
-              </Link>
-              <div className="flex items-center gap-10 font-bold text-lg">
-                <Link href="/slang">Slang</Link>
-
-                <Link href="/rhymes">Rhymes</Link>
-
-                <Link href="/thesaurus/1">Thesaurus</Link>
-              </div>
-            </div>
-          </div>
-        </header>
-      ) : (
+      {isHomePage ? null : (
         /* OTHER PAGES NAVBAR */
         <header className="bg-[#016701] text-white border-b">
           <div className="w-full px-4">
