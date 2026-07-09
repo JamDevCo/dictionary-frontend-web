@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import TextCard from "../card/TextCard";
+import { Section, SectionHeading, SectionColumns } from "@/components/section";
 
 export default function WordContext() {
   const [email, setEmail] = useState("");
@@ -13,13 +14,11 @@ export default function WordContext() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+    <Section as="div">
+      <SectionColumns columns={2} gap="lg">
         {/* Left Column - Context */}
         <div>
-          <h2 className="text-2xl font-medium text-gray-900 mb-6">
-            NYAM in Context
-          </h2>
+          <SectionHeading title="NYAM in Context" className="mb-6" />
           <p className="text-gray-700 leading-relaxed">
             Lorem ipsum dolor sit amet consectetur. A non ut blandit sit eget
             sodales malesuada laoreet. Tincidunt duis eget id integer eu arcu.
@@ -70,7 +69,7 @@ export default function WordContext() {
             <div className="w-24 h-px bg-gray-300"></div>
           </div>
         </TextCard>
-      </div>
-    </div>
+      </SectionColumns>
+    </Section>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Card from "../card/Card";
+import { Section, SectionColumns } from "@/components/section";
 
 interface SlangEntry {
   title: string;
@@ -55,16 +55,17 @@ export default function Slangs() {
   ];
 
   return (
-  <div className="max-w-6xl mx-auto bg-gray-50 p-8">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {slangEntries.map((entry, index) => (
-        <Card
-          key={index}
-          title={entry.title}
-          image={entry.image}
-          description={entry.description}
-        />
-      ))}
-    </div>
-  </div>
-);}
+    <Section as="div" background="muted">
+      <SectionColumns columns={4} gap="sm">
+        {slangEntries.map((entry, index) => (
+          <Card
+            key={index}
+            title={entry.title}
+            image={entry.image}
+            description={entry.description}
+          />
+        ))}
+      </SectionColumns>
+    </Section>
+  );
+}

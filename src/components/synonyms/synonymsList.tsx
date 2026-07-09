@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Section } from "@/components/section";
 
 interface SynonymGroup {
   word: string;
@@ -102,7 +103,7 @@ export default function SynonymsList() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-50 p-8">
+    <Section as="div" background="muted">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-20">
         {synonymGroups.map((group, index) => (
           <div key={index} className="relative">
@@ -158,6 +159,6 @@ export default function SynonymsList() {
           </div>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }

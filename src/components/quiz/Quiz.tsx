@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from 'next/image';
+import { Section, SectionDivider, SectionColumns } from "@/components/section";
 
 export default function Quiz() {
   const [email, setEmail] = useState("");
@@ -13,11 +14,11 @@ export default function Quiz() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-50 p-8">
+    <Section as="div" background="muted">
       {/* Top decorative line */}
-      <div className="w-full h-px bg-green-300 mb-14"></div>
+      <SectionDivider className="mb-14" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <SectionColumns columns={2}>
         {/* Left Card - Quiz */}
         <div className="bg-white rounded-lg border-2 border-gray-400 overflow-hidden">
           <div className="p-6">
@@ -106,7 +107,7 @@ export default function Quiz() {
             </form>
           </div>
         </div>
-      </div>
-    </div>
+      </SectionColumns>
+    </Section>
   );
 }
