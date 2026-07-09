@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Section, SectionHeading, SectionDivider } from "@/components/section";
 
 interface QuizCard {
   id: number;
@@ -79,15 +80,17 @@ export default function VocabularyQuiz() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto  p-8">
+    <Section as="div">
       {/* Top decorative line */}
-      <div className="w-full h-px bg-green-300 mb-8"></div>
+      <SectionDivider className="mb-8" />
 
       {/* Quiz Slider Section */}
       <div className="mb-12">
-        <h2 className="text-2xl font-medium text-gray-900 text-center mb-8">
-          Test Your Vocabulary with M-W Quizzes
-        </h2>
+        <SectionHeading
+          title="Test Your Vocabulary with M-W Quizzes"
+          align="center"
+          className="mb-8"
+        />
 
         <div className="relative flex items-center justify-center">
           {/* Left Arrow */}
@@ -161,7 +164,7 @@ export default function VocabularyQuiz() {
       </div>
 
       {/* Bottom decorative line */}
-      <div className="w-full h-px bg-green-300"></div>
-    </div>
+      <SectionDivider />
+    </Section>
   );
 }

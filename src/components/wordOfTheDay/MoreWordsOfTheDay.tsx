@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import TextCard from "../card/TextCard";
+import { Section } from "@/components/section";
 
 interface WordEntry {
   date: string;
@@ -19,12 +19,14 @@ export default function MoreWordsOfTheDay() {
   ];
 
   return (
-    <TextCard className="max-w-6xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-2xl font-medium text-gray-900 mb-8">
-          More Words of the Day
-        </h2>
-
+    <Section
+      as="div"
+      card
+      divider="bottom"
+      title="More Words of the Day"
+      align="center"
+    >
+      <div className="text-center">
         <div className="grid grid-cols-2 gap-x-16 gap-y-8 max-w-2xl mx-auto">
           {words.map((entry, index) => (
             <div key={index} className="text-center">
@@ -44,9 +46,6 @@ export default function MoreWordsOfTheDay() {
           </button>
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="w-full h-px bg-green-300"></div>
-    </TextCard>
+    </Section>
   );
 }

@@ -2,6 +2,7 @@
 
 import GrammarCard from "@/components/card/GrammarCard";
 import React from "react";
+import { Section, SectionColumns } from "@/components/section";
 
 interface GrammarEntry {
   title: string;
@@ -37,7 +38,7 @@ export default function GrammarUsage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
+    <Section as="div">
       <div className="p-6">
         <div className="bg-green-50 p-6 rounded-lg flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Grammar & Usage</h2>
@@ -62,7 +63,7 @@ export default function GrammarUsage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <SectionColumns columns={4} gap="sm">
           {grammarEntries.map((entry, index) => (
             <GrammarCard
               key={index}
@@ -71,8 +72,8 @@ export default function GrammarUsage() {
               onClick={() => handleCardClick(entry)}
             />
           ))}
-        </div>
+        </SectionColumns>
       </div>
-    </div>
+    </Section>
   );
 }

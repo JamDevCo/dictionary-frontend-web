@@ -4,6 +4,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight, Volume2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import {
+  Section,
+  SectionHeading,
+  SectionDivider,
+  SectionColumns,
+} from "@/components/section";
 
 export default function Page() {
   const params = useParams();
@@ -108,7 +114,7 @@ export default function Page() {
 
   return (
     <main className="pb-[90px]">
-      <div className="max-w-6xl mx-auto p-8">
+      <Section as="div">
         {/* header with chevrons */}
         <div className="flex items-center justify-between mb-8">
           <button className="p-2 rounded-full hover:bg-gray-200 transition-colors">
@@ -150,13 +156,16 @@ export default function Page() {
         </div>
 
         {/* thin green divider */}
-        <div className="w-full h-px bg-green-300 mb-8"></div>
+        <SectionDivider className="mb-8" />
 
         {/* definition */}
         <div className="mb-8">
-          <h3 className="text-xl font-medium text-gray-900 mb-4">
-            What It means
-          </h3>
+          <SectionHeading
+            title="What It means"
+            level="h3"
+            size="sm"
+            className="mb-4"
+          />
           <p className="text-gray-700 leading-relaxed mb-4">
             {definition ||
               (isLoading ? "Loading..." : "No definition available.")}
@@ -170,13 +179,14 @@ export default function Page() {
         </div>
 
         {/* two-column area: context + newsletter */}
-        <div className="max-w-6xl mx-auto mt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        <div className="mt-8">
+          <SectionColumns columns={3} gap="lg">
             {/* Context (left wide) */}
             <div className="lg:col-span-2">
-              <h2 className="text-2xl font-medium text-gray-900 mb-6">
-                {word.toUpperCase()} in Context
-              </h2>
+              <SectionHeading
+                title={`${word.toUpperCase()} in Context`}
+                className="mb-6"
+              />
               <p className="text-gray-700 leading-relaxed">
                 {example ||
                   "Lorem ipsum dolor sit amet consectetur. A non ut blandit sit eget sodales malesuada laoreet. Tincidunt duis eget id integer eu arcu. Congue bibendum at eget bibendum. Consectetur nisl blandit mattis auctor scelerisque a ornare morbi. Rhoncus pulvinar justo elit faucibus. Aliquet lectus sit turpis pharetra sagittis. Quis mi euismod urna pellentesque placerat tempus. Sed et morbi vulputate elementum. Pellentesque malesuada sit massa arcu pretium. Eget quis malesuada cras a id cursus tristique viverra. Eros suspendisse et viverra purus enim ornare nisi nulla congue."}
@@ -222,9 +232,9 @@ export default function Page() {
                 <div className="w-24 h-px bg-gray-300"></div>
               </div>
             </aside>
-          </div>
+          </SectionColumns>
         </div>
-      </div>
+      </Section>
     </main>
   );
 }

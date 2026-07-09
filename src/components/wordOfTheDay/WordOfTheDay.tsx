@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Volume2, ChevronLeft, ChevronRight } from "lucide-react";
-import TextCard from "../card/TextCard";
+import { Section, SectionHeading, SectionDivider } from "@/components/section";
 
 export default function WordOfTheDay() {
   const date = "July 28, 2025";
@@ -19,7 +19,7 @@ export default function WordOfTheDay() {
   };
 
   return (
-    <TextCard className="max-w-6xl mx-auto">
+    <Section as="div" card>
       {/* Header with navigation */}
       <div className="flex items-center justify-between mb-8">
         <button className="p-2 rounded-full hover:bg-gray-200 transition-colors">
@@ -61,13 +61,16 @@ export default function WordOfTheDay() {
       </div>
 
       {/* Divider */}
-      <div className="w-full h-px bg-green-300 mb-8"></div>
+      <SectionDivider className="mb-8" />
 
       {/* Definition section */}
       <div className="mb-8">
-        <h3 className="text-xl font-medium text-gray-900 mb-4">
-          What It means
-        </h3>
+        <SectionHeading
+          title="What It means"
+          level="h3"
+          size="sm"
+          className="mb-4"
+        />
         <p className="text-gray-700 leading-relaxed mb-4">{definition}</p>
         <p className="text-gray-600 italic text-sm leading-relaxed">
           {`// ${example}`}
@@ -80,6 +83,6 @@ export default function WordOfTheDay() {
           See the entry &gt;
         </button>
       </div>
-    </TextCard>
+    </Section>
   );
 }

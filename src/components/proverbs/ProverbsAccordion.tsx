@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Section } from "@/components/section";
 // import Card from "../../components/card/Card";
 
 interface Proverb {
@@ -124,7 +125,7 @@ export default function ProverbsAccordion() {
   const isOpen = (id: number) => openItems.includes(id);
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-50 p-8">
+    <Section as="div" background="muted">
       <div className="space-y-4">
         {proverbs.map((proverb) => (
           <div key={proverb.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -161,6 +162,6 @@ export default function ProverbsAccordion() {
           </div>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }
