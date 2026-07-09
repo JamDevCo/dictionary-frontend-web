@@ -40,21 +40,26 @@ export default function Page() {
           <div className="grid grid-cols-12 gap-6">
             {/* Left sidebar */}
             <Sidebar
+              className="col-span-12 md:col-span-2"
               title="Thesaurus"
               subtitle={`Synonyms of ${word.word}`}
-              sectionLabel={
-                word.part_of_speech ? word.part_of_speech.toUpperCase() : ""
-              }
-              items={[
-                ...(meaning.definition
-                  ? [{ label: `Meaning: ${meaning.definition}` }]
-                  : []),
-                ...(meaning.example
-                  ? [{ label: `Example: ${meaning.example}` }]
-                  : []),
-                ...thesaurusList.map((s) => ({
-                  label: s.synonym.word,
-                })),
+              groups={[
+                {
+                  label: word.part_of_speech
+                    ? word.part_of_speech.toUpperCase()
+                    : undefined,
+                  items: [
+                    ...(meaning.definition
+                      ? [{ label: `Meaning: ${meaning.definition}` }]
+                      : []),
+                    ...(meaning.example
+                      ? [{ label: `Example: ${meaning.example}` }]
+                      : []),
+                    ...thesaurusList.map((s) => ({
+                      label: s.synonym.word,
+                    })),
+                  ],
+                },
               ]}
             />
 
